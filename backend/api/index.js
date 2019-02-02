@@ -52,4 +52,27 @@ router.get('/:room_id/queue', async (req, res) => {
     res.status(200).send(queue);
 });
 
+router.post('/:room_id/:song_id', async (req, res) => {
+    let room_id = req.params.room_id;
+    let song_id = req.params.song_id;
+
+    let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
+    if (room) {
+        return res.status(400).send({error: 'Song is already in queue!'});
+    }
+
+    let song = {
+        song_id: song_id,
+        votes: 0
+    }
+
+    try {
+        await Room.findOneAndUpdate({number: room_id}, { $push: { queue: song }}) // IDK
+        return res.status(200).send({message: 'Song added to queue!'});
+    } catch (e) {
+        return res.status(400).send({error: 'Could not add song to queue'});
+    }
+
+});
+
 module.exports = router;
