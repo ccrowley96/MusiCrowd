@@ -12,6 +12,7 @@
     "dotenv": "^6.2.0",
     "express": "~4.16.0",
     "lodash": "^4.17.11",
+    "mongoose": "^5.4.9",
     "querystring": "~0.2.0",
     "request": "~2.83.0"
   }
