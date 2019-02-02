@@ -12,7 +12,8 @@ class Admin extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			results: []
+			results: [],
+			clearSearch: false
 		};
 	}
 
@@ -20,14 +21,20 @@ class Admin extends Component {
 		this.setState({ results }, () => console.log(this.state.results));
 	};
 
+	clearSearch = () => {
+		this.setState({
+			results: []
+		});
+	}
+
 	render() {
 		return (
 			<Container>
 				<Player />
 				<div className="admin">
 					<div>
-						<Search setResults={this.setResults} />
-						<Results results={this.state.results} />
+						<Search setResults={this.setResults}/>
+						<Results results={this.state.results} clearSearch={this.clearSearch} />
 					</div>
 				</div>
 			</Container>

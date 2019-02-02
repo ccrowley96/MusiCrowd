@@ -18,14 +18,13 @@ class Results extends Component {
 	};
 
 	handleSongClick = (song) => {
-		console.log('here', song)
-		axios.post(`/api/add`)
+		//TODO change room ID to stateful
+		
+		axios.post(`/api/add/${1}/${song.id}`)
 		.then(() => {
-			this.setState({results: []});
+			this.props.clearSearch();
 		})
 		.catch((err) => console.log(err))
-
-		// console.log(song);
 	}
 
 	render() {
