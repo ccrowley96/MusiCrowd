@@ -52,6 +52,7 @@ router.get('/:room_id/queue', async (req, res) => {
     res.status(200).send(queue);
 });
 
+// Add a song to room
 router.post('/add/:room_id/:song_id/', async (req, res) => {
     let room_id = req.params.room_id;
     let song_id = req.params.song_id;
@@ -72,9 +73,9 @@ router.post('/add/:room_id/:song_id/', async (req, res) => {
     } catch (e) {
         return res.status(400).send({error: 'Could not add song to queue'});
     }
-
 });
 
+// Remove a song from queue
 router.post('/remove/:room_id/:song_id', async (req,res) =>{
     let room_id = req.params.room_id;
     let song_id = req.params.song_id;
@@ -91,6 +92,42 @@ router.post('/remove/:room_id/:song_id', async (req,res) =>{
         return res.status(400).send({error: 'Could not delete song from queue.'});
     }
 
+});
+
+router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
+    let room_id = req.params.room_id;
+    let song_id = req.params.song_id;
+    let vote = parseInt(req.params.vote);
+
+    let room;
+    let song;
+    
+    if (vote !== 1 && vote !== -1) {
+        return res.status(400).send({error: 'Invalid vote code.'});
+    }
+
+    // Check to see if room exists
+    try {
+        room = await Room.findOne({number: room_id});
+    } catch (e) {
+        return res.status(400).send({error: 'Room does not exist.'});
+    }
+
+    // Check to see if song exists
+    try {
+        song = await Room.findOne({number: room_id, 'queue.song_id': song_id});
+    } catch (e) {
+        return res.status(400).send({error: 'Song does not exist.'});
+    }
+    
+    // Update vote count
+    let incrementAmount = vote;
+    try {
+        await Room.findOneAndUpdate({number: room_id, 'queue.song_id': song_id}, { $inc: {'queue.$.votes': incrementAmount}});
+        return res.status(200).send({message: `Voted for song ${song_id}`});
+    } catch (e) {
+        return res.status(400).send({error: 'Could not update vote count.'});
+    }
 });
 
 module.exports = router;
