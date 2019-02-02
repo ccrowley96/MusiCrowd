@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { Container } from "reactstrap";
 import { Redirect } from "react-router-dom";
@@ -18,18 +18,23 @@ class Admin extends Component {
 			results: [],
 			roomCreated: false,
 			redirect: false,
-			partyCode: undefined
+			partyCode: undefined,
+			currentlyPlaying: undefined
 		};
 	}
 
 	componentDidMount = () => {
 		if (this.props.access_token) {
-			let payload = {token: this.props.access_token};
-			axios.post(`/api/create_room`, payload )
-			.then((response) => {
-				this.setState({roomCreated: true, partyCode: response.data.party_code});
-			})
-			.catch((err) => console.log(err))
+			let payload = { token: this.props.access_token };
+			axios
+				.post(`/api/create_room`, payload)
+				.then(response => {
+					this.setState({
+						roomCreated: true,
+						partyCode: response.data.party_code
+					});
+				})
+				.catch(err => console.log(err));
 		} else {
 			this.setState({
 				redirect: true
@@ -47,12 +52,31 @@ class Admin extends Component {
 		});
 	};
 
+	loadSong = song => {
+		console.log(this.state.partyCode);
+		axios
+			.get(`/api/nextsong/${this.state.partyCode}`)
+			.then(res => {
+				// console.log(res.data);
+				this.setState({
+					currentlyPlaying: res.data.uri
+				});
+			})
+			.catch(err => console.log(err));
+	};
+
 	render() {
 		if (this.state.redirect) return <Redirect to="/" />;
-		if (!this.state.roomCreated) return <div><p>loading...</p></div>;
+		if (!this.state.roomCreated)
+			return (
+				<div>
+					<p>loading...</p>
+				</div>
+			);
 		return (
 			<Container>
-				<Player />
+				<Player currentlyPlaying={this.state.currentlyPlaying} />
+				<button onClick={this.loadSong} />
 				<div className="admin">
 					<div>
 						<Search setResults={this.setResults} />
@@ -61,11 +85,8 @@ class Admin extends Component {
 							partyCode={this.state.partyCode}
 							clearSearch={this.clearSearch}
 						/>
-					
 					</div>
-					<Queue 
-							partyCode={this.state.partyCode}
-					/>
+					<Queue partyCode={this.state.partyCode} />
 				</div>
 			</Container>
 		);

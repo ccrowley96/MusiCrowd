@@ -8,6 +8,7 @@ import {
 	faPlay,
 	faPause
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import "./Player.css";
 
 class Player extends Component {
@@ -117,6 +118,15 @@ class Player extends Component {
 
 	onNextClick() {
 		this.player.nextTrack();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (
+			prevProps.currentlyPlaying !== this.props.currentlyPlaying &&
+			this.props.currentlyPlaying
+		) {
+			this.play(this.props.currentlyPlaying);
+		}
 	}
 
 	transferPlaybackHere() {
