@@ -1,17 +1,22 @@
 const mongoose = require('mongoose');
 
-const rooomSchema = mongoose.Schema({
+const roomSchema = mongoose.Schema({
     number: {
       type: Number,
       required: true
     },    
     queue: [{
-      uid : String,
-      name : String,
-      fblink: String
-    }],
+        song_id : {
+          type: String,
+          required: true
+        }, 
+        votes: {
+          type: Number,
+          required: true
+        }
+    }]
   });
   
+  const Room = mongoose.model('Room', roomSchema);
 
-  
-  const Room = module.exports = mongoose.model('Room', rideSchema);
+  module.exports = {Room}
