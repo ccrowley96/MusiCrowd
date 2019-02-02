@@ -1,4 +1,5 @@
 const express = require('express');
+const randomstring = require("randomstring");
 const router = express.Router();
 
 const {mongoose} = require('./../db/mongoose')
@@ -12,39 +13,35 @@ router.get('/', (req, res, next) => {
 
 // Creates room
 router.post('/create_room', async (req, res) => {
+    // Grab from body auth token
+    let auth_token = req.body.token;
     // Test data
-    let queue = [{
-        song_id: 69,
-        votes: 4
-    }, {
-        song_id: 100,
-        votes: 5
-    }];
+    let queue = [];
+
+    // Create unique room number
+    let party_code = randomstring.generate(6).toLowerCase();   
 
     // Create new room
-    let allRooms = await Room.find({});
-    let numberOfRooms = allRooms.length;
-    let roomNumber = numberOfRooms + 1;
-    let room = await new Room({number: roomNumber, queue: queue}).save();
+    let room = await new Room({party_code: party_code, queue: queue, auth_token: auth_token}).save();
     
-    res.status(200).send({roomNumber});
+    res.status(200).send({party_code});
 });
 
 // Deletes room
-router.delete('/delete_room/:room_id', async (req, res) => {
+router.delete('/delete_room/:party_code', async (req, res) => {
     // Get room to delete
-    let room_id = req.params.room_id;
+    let party_code = req.params.party_code;
 
-    await Room.deleteOne({number: room_id});
+    await Room.deleteOne({party_code: party_code});
 
     res.status(200).send();
 });
 
 // Returns sorted queue
-router.get('/:room_id/queue', async (req, res) => {
-    let room_id = req.params.room_id;
+router.get('queue/:party_code', async (req, res) => {
+    let party_code = req.params.party_code;
 
-    let room = await Room.findOne({number: room_id});
+    let room = await Room.findOne({party_code: party_code});
     let queue = room.queue;
 
     queue.sort((song1, song2) => {return song2.votes - song1.votes});
@@ -53,13 +50,11 @@ router.get('/:room_id/queue', async (req, res) => {
 });
 
 // Add a song to room
-///:room_id/:song_id/
 router.post('/add_song', async (req, res) => {
-    console.log('REQ BODY', req.body);
-    let room_id = req.body.room_id;
+    let party_code = req.body.party_code;
     let song_id = req.body.song.id;
 
-    let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
+    let room = await Room.findOne({party_code: party_code, "queue.song_id": song_id});
     if (room) {
         return res.status(400).send({error: 'Song is already in queue!'});
     }
@@ -71,7 +66,7 @@ router.post('/add_song', async (req, res) => {
     }
 
     try {
-        await Room.findOneAndUpdate({number: room_id}, { $push: { queue: song }})
+        await Room.findOneAndUpdate({party_code: party_code}, { $push: { queue: song }})
         return res.status(200).send({message: 'Song added to queue!'});
     } catch (e) {
         return res.status(400).send({error: 'Could not add song to queue'});
@@ -79,17 +74,17 @@ router.post('/add_song', async (req, res) => {
 });
 
 // Remove a song from queue
-router.post('/remove/:room_id/:song_id', async (req,res) =>{
-    let room_id = req.params.room_id;
-    let song_id = req.params.song_id;
+router.post('/remove_song', async (req,res) =>{
+    let party_code = req.body.party_code;
+    let song_id = req.body.song.id;
     
-    let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
+    let room = await Room.findOne({party_code: party_code, "queue.song_id": song_id});
     if (!room) {
         return res.status(404).send({error: 'Song is not in the queue.'});
     }
 
     try{
-        await Room.findOneAndUpdate({number: room_id}, { $pull: { queue: { song_id: song_id}}});
+        await Room.findOneAndUpdate({party_code: party_code}, { $pull: { queue: { song_id: song_id}}});
         return res.status(200).send({message: 'Song deleted from queue.'})
     }catch(e){
         return res.status(400).send({error: 'Could not delete song from queue.'});
@@ -98,10 +93,10 @@ router.post('/remove/:room_id/:song_id', async (req,res) =>{
 });
 
 // Vote on song
-router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
-    let room_id = req.params.room_id;
-    let song_id = req.params.song_id;
-    let vote = parseInt(req.params.vote);
+router.post('/vote', async (req, res) => {
+    let vote = req.body.vote;
+    let party_code = req.body.party_code;
+    let song_id = req.body.song.id;
 
     let room;
     let song;
@@ -112,14 +107,14 @@ router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
 
     // Check to see if room exists
     try {
-        room = await Room.findOne({number: room_id});
+        room = await Room.findOne({party_code: party_code});
     } catch (e) {
         return res.status(400).send({error: 'Room does not exist.'});
     }
 
     // Check to see if song exists
     try {
-        song = await Room.findOne({number: room_id, 'queue.song_id': song_id});
+        song = await Room.findOne({party_code: party_code, 'queue.song_id': song_id});
     } catch (e) {
         return res.status(400).send({error: 'Song does not exist.'});
     }
@@ -127,25 +122,25 @@ router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
     // Update vote count
     let incrementAmount = vote;
     try {
-        await Room.findOneAndUpdate({number: room_id, 'queue.song_id': song_id}, { $inc: {'queue.$.votes': incrementAmount}});
+        await Room.findOneAndUpdate({party_code: party_code, 'queue.song_id': song_id}, { $inc: {'queue.$.votes': incrementAmount}});
         return res.status(200).send({message: `Voted for song ${song_id}`});
     } catch (e) {
         return res.status(400).send({error: 'Could not update vote count.'});
     }
 });
 
-router.get('/nextsong/:room_id/', async (req, res) => {
-    let room_id = req.params.room_id;
+router.get('/nextsong/:party_code/', async (req, res) => {
+    let party_code = req.params.party_code;
 
     // Check to see if room exists
     try {
-        room = await Room.findOne({number: room_id});
+        room = await Room.findOne({party_code: party_code});
     } catch (e) {
         return res.status(400).send({error: 'Room does not exist.'});
     }
 
     try {
-        let room = await Room.findOne({number: room_id});
+        let room = await Room.findOne({party_code: party_code});
         max = 0;
         song_id = 0;
         for (i = 0; i < room.queue.length; i++) {

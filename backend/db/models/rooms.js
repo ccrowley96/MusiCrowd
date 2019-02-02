@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
 const roomSchema = mongoose.Schema({
-    number: {
-      type: Number,
+    party_code: {
+      type: String,
       required: true
     },    
+    auth_token: {
+      type: String,
+      required: true
+    },
     queue: [{
         song_id : {
           type: String,

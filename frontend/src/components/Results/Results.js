@@ -18,7 +18,7 @@ class Results extends Component {
 	};
 
 	handleSongClick = (song) => {
-		let payload = {song:song, room_id: 1};
+		let payload = {song:song, party_code: 1};
 		//TODO change room ID to stateful
 		axios.post(`/api/add_song`, payload )
 		.then(() => {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { Container } from "reactstrap";
 import { Redirect } from "react-router-dom";
@@ -14,13 +15,21 @@ class Admin extends Component {
 		super(props);
 		this.state = {
 			results: [],
-			clearSearch: false,
-			redirect: false
+			roomCreated: false,
+			redirect: false,
+			partyCode: null
 		};
 	}
 
 	componentDidMount = () => {
 		if (this.props.access_token) {
+			let payload = {token: this.props.access_token};
+			axios.post(`/api/create_room`, payload )
+			.then((response) => {
+				console.log('here',response);
+				this.setState({roomCreated: true, partyCode: response.party_code});
+			})
+			.catch((err) => console.log(err))
 		} else {
 			this.setState({
 				redirect: true
@@ -40,6 +49,7 @@ class Admin extends Component {
 
 	render() {
 		if (this.state.redirect) return <Redirect to="/" />;
+		if (!this.state.roomCreated) return <div><p>loading...</p></div>;
 		return (
 			<Container>
 				<Player />
