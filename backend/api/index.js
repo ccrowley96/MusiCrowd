@@ -6,43 +6,50 @@ const {Room} = require('./../db/models/rooms')
 
 const _ = require('lodash');
 
-let data = [];
-
 router.get('/', (req, res, next) => {
     res.send("Welcome to our API");
 });
 
+// Creates room
 router.post('/create_room', async (req, res) => {
-    
+    // Test data
+    let queue = [{
+        song_id: 69,
+        votes: 4
+    }, {
+        song_id: 100,
+        votes: 5
+    }];
+
     // Create new room
-    let room = await new Room({number: 2}).save();
+    let allRooms = await Room.find({});
+    let numberOfRooms = allRooms.length;
+    let roomNumber = numberOfRooms + 1;
+    let room = await new Room({number: roomNumber, queue: queue}).save();
     
-    res.status(200).send();
+    res.status(200).send({roomNumber});
 });
 
-router.post('/delete_room/:room_id', (req, res, next) => {
+// Deletes room
+router.delete('/delete_room/:room_id', async (req, res) => {
     // Get room to delete
     let room_id = req.params.room_id;
 
-    // Filter through data and remove room to be deleted
-    data = _.remove(data, (room) => {
-            if(room.roomNumber === room_id)
-                return true; 
-    });
+    await Room.deleteOne({number: room_id});
 
-    // Print data for debugging
-    console.log(data);
     res.status(200).send();
 });
 
-
+// Returns sorted queue
 router.get('/:room_id/queue', async (req, res) => {
     let room_id = req.params.room_id;
-    // let queue = data.map((room) => {
-    //     if (room.roomNumber === room_id) {
-    //         return room.
-    //     }
-    // });
+
+    let room = await Room.findOne({number: room_id});
+    let queue = room.queue;
+
+    queue.sort((song1, song2) => {return song2.votes - song1.votes});
+
+    res.status(200).send(queue);
 });
 
 module.exports = router;

@@ -22,13 +22,15 @@ class Admin extends Component {
 
 	render() {
 		return (
-			<div className="admin">
-				<Container>
-					<Search setResults={this.setResults} />
-					<Results results={this.state.results} />
-					<Player />
-				</Container>
-			</div>
+			<Container>
+				<Player />
+				<div className="admin">
+					<div>
+						<Search setResults={this.setResults} />
+						<Results results={this.state.results} />
+					</div>
+				</div>
+			</Container>
 		);
 	}
 }
