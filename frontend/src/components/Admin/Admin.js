@@ -1,8 +1,46 @@
 import React, { Component } from "react";
-import "./Admin.css";
+import { setAccessToken, setSearchResults } from "../../actions/dataAction";
+import { Container } from "reactstrap";
+import { connect } from "react-redux";
+import Search from "../Search/Search";
 
-export default class Admin extends Component {
+import "./Admin.css";
+import Results from "../Results/Results";
+
+class Admin extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			results: []
+		};
+	}
+
+	setResults = results => {
+		this.setState({ results }, () => console.log(this.state.results));
+	};
+
 	render() {
-		return <div className="admin">admin</div>;
+		return (
+			<div className="admin">
+				<Container>
+					<Search setResults={this.setResults} />
+					<Results results={this.state.results} />
+				</Container>
+			</div>
+		);
 	}
 }
+
+const actions = { setAccessToken, setSearchResults };
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		access_token: state.data.data.access_token,
+		search_results: state.data.data.search_results
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	actions
+)(Admin);

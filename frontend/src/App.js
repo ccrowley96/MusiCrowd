@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
 import HomePage from "./components/HomePage/HomePage";
 import Admin from "./components/Admin/Admin";
 import Room from "./components/Room/Room";
@@ -24,16 +23,4 @@ class App extends Component {
 		);
 	}
 }
-
-const actions = {};
-
-const mapStateToProps = (state, ownProps) => {
-	return {};
-};
-
-export default withRouter(
-	connect(
-		mapStateToProps,
-		actions
-	)(App)
-);
+export default withRouter(App);
