@@ -17,9 +17,11 @@ class Search extends Component {
 	}
 
 	componentDidMount = () => {
+		console.log(this.props);
 		// if(this.props.access_token === undefined) redirect to home
 		if (this.props.access_token !== undefined)
 			spotifyApi.setAccessToken(this.props.access_token);
+		
 	};
 
 	handleSearch = e => {
