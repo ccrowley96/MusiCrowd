@@ -1,2 +1,0 @@
-# Decibois
-Collaborative Spotify playlists.
