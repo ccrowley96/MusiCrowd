@@ -53,7 +53,8 @@ router.get('/:room_id/queue', async (req, res) => {
 });
 
 // Add a song to room
-router.post('/add/:room_id/:song_id/', async (req, res) => {
+///:room_id/:song_id/
+router.post('/add/:room_id/:song_id', async (req, res) => {
     let room_id = req.params.room_id;
     let song_id = req.params.song_id;
 
