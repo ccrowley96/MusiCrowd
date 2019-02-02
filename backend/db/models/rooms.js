@@ -12,11 +12,10 @@ const roomSchema = mongoose.Schema({
         }, 
         votes: {
           type: Number,
-          required: true
+          default: 0
         }
     }]
   });
   
   const Room = mongoose.model('Room', roomSchema);
-
   module.exports = {Room}

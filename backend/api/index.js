@@ -52,4 +52,110 @@ router.get('/:room_id/queue', async (req, res) => {
     res.status(200).send(queue);
 });
 
+// Add a song to room
+///:room_id/:song_id/
+router.post('/add/:room_id/:song_id', async (req, res) => {
+    let room_id = req.params.room_id;
+    let song_id = req.params.song_id;
+
+    let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
+    if (room) {
+        return res.status(400).send({error: 'Song is already in queue!'});
+    }
+
+    let song = {
+        song_id: song_id,
+        votes: 0
+    }
+
+    try {
+        await Room.findOneAndUpdate({number: room_id}, { $push: { queue: song }}) // IDK
+        return res.status(200).send({message: 'Song added to queue!'});
+    } catch (e) {
+        return res.status(400).send({error: 'Could not add song to queue'});
+    }
+});
+
+// Remove a song from queue
+router.post('/remove/:room_id/:song_id', async (req,res) =>{
+    let room_id = req.params.room_id;
+    let song_id = req.params.song_id;
+    
+    let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
+    if (!room) {
+        return res.status(404).send({error: 'Song is not in the queue.'});
+    }
+
+    try{
+        await Room.findOneAndUpdate({number: room_id}, { $pull: { queue: { song_id: song_id}}});
+        return res.status(200).send({message: 'Song deleted from queue.'})
+    }catch(e){
+        return res.status(400).send({error: 'Could not delete song from queue.'});
+    }
+
+});
+
+// Vote on song
+router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
+    let room_id = req.params.room_id;
+    let song_id = req.params.song_id;
+    let vote = parseInt(req.params.vote);
+
+    let room;
+    let song;
+    
+    if (vote !== 1 && vote !== -1) {
+        return res.status(400).send({error: 'Invalid vote code.'});
+    }
+
+    // Check to see if room exists
+    try {
+        room = await Room.findOne({number: room_id});
+    } catch (e) {
+        return res.status(400).send({error: 'Room does not exist.'});
+    }
+
+    // Check to see if song exists
+    try {
+        song = await Room.findOne({number: room_id, 'queue.song_id': song_id});
+    } catch (e) {
+        return res.status(400).send({error: 'Song does not exist.'});
+    }
+    
+    // Update vote count
+    let incrementAmount = vote;
+    try {
+        await Room.findOneAndUpdate({number: room_id, 'queue.song_id': song_id}, { $inc: {'queue.$.votes': incrementAmount}});
+        return res.status(200).send({message: `Voted for song ${song_id}`});
+    } catch (e) {
+        return res.status(400).send({error: 'Could not update vote count.'});
+    }
+});
+
+router.get('/nextsong/:room_id/', async (req, res) => {
+    let room_id = req.params.room_id;
+
+    // Check to see if room exists
+    try {
+        room = await Room.findOne({number: room_id});
+    } catch (e) {
+        return res.status(400).send({error: 'Room does not exist.'});
+    }
+
+    try {
+        let room = await Room.findOne({number: room_id});
+        max = 0;
+        song_id = 0;
+        for (i = 0; i < room.queue.length; i++) {
+            if (room.queue[i].votes >= max) {
+                max = room.queue[i].votes;
+                song_id = room.queue[i].song_id;
+            }
+        }
+        res.status(200).send(song_id);
+    } catch (e) {
+        res.status(400).send({error: 'Could not retrieve latest song.'})
+    }
+});
+
 module.exports = router;

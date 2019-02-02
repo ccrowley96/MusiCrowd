@@ -3,10 +3,10 @@ import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { Container } from "reactstrap";
 import { connect } from "react-redux";
 import Search from "../Search/Search";
+import Player from "../Player/Player";
 
 import "./Admin.css";
 import Results from "../Results/Results";
-import Player from "../Player/Player";
 
 class Admin extends Component {
 	constructor(props) {
@@ -24,7 +24,6 @@ class Admin extends Component {
 		return (
 			<Container>
 				<Player />
-
 				<div className="admin">
 					<div>
 						<Search setResults={this.setResults} />
