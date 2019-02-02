@@ -20,7 +20,7 @@ class Results extends Component {
 	handleSongClick = (song) => {
 		//TODO change room ID to stateful
 		
-		axios.post(`/api/add/${1}/${song.id}`)
+		axios.post(`/api/add/${1}/${song.uri}`)
 		.then(() => {
 			this.props.clearSearch();
 		})
