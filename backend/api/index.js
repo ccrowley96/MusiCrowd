@@ -52,7 +52,7 @@ router.get('/:room_id/queue', async (req, res) => {
     res.status(200).send(queue);
 });
 
-router.post('/:room_id/:song_id', async (req, res) => {
+router.post('/add/:room_id/:song_id/', async (req, res) => {
     let room_id = req.params.room_id;
     let song_id = req.params.song_id;
 
@@ -71,6 +71,24 @@ router.post('/:room_id/:song_id', async (req, res) => {
         return res.status(200).send({message: 'Song added to queue!'});
     } catch (e) {
         return res.status(400).send({error: 'Could not add song to queue'});
+    }
+
+});
+
+router.post('/remove/:room_id/:song_id', async (req,res) =>{
+    let room_id = req.params.room_id;
+    let song_id = req.params.song_id;
+    
+    let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
+    if (!room) {
+        return res.status(404).send({error: 'Song is not in the queue.'});
+    }
+
+    try{
+        await Room.findOneAndUpdate({number: room_id}, { $pull: {'queue.song_id': song_id}});
+        return resizeTo.status(200).send({message: 'Song deleted from queue.'})
+    }catch(e){
+        return res.status(400).send({error: 'Could not delete song from queue.'});
     }
 
 });
