@@ -75,7 +75,10 @@ class Admin extends Component {
 			);
 		return (
 			<Container>
-				<Player currentlyPlaying={this.state.currentlyPlaying} />
+				<Player
+					currentlyPlaying={this.state.currentlyPlaying}
+					loadSong={this.loadSong}
+				/>
 				<button onClick={this.loadSong} />
 				<div className="admin">
 					<div>

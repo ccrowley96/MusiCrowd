@@ -96,15 +96,22 @@ class Player extends Component {
 				.map(artist => artist.name)
 				.join(", ");
 			const playing = !state.paused;
-			this.setState({
-				position,
-				duration,
-				trackName,
-				albumName,
-				artistName,
-				playing,
-				trackImage
-			});
+			this.setState(
+				{
+					position,
+					duration,
+					trackName,
+					albumName,
+					artistName,
+					playing,
+					trackImage
+				},
+				() => {
+					this.state.playing
+						? console.log("playing")
+						: this.props.loadSong();
+				}
+			);
 		}
 	}
 
