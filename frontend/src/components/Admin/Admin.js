@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Search from "../Search/Search";
 import Player from "../Player/Player";
+import Queue from "../Queue/Queue";
 
 import "./Admin.css";
 import Results from "../Results/Results";
@@ -26,7 +27,6 @@ class Admin extends Component {
 			let payload = {token: this.props.access_token};
 			axios.post(`/api/create_room`, payload )
 			.then((response) => {
-				console.log('response',response);
 				this.setState({roomCreated: true, partyCode: response.data.party_code});
 			})
 			.catch((err) => console.log(err))
@@ -61,8 +61,11 @@ class Admin extends Component {
 							partyCode={this.state.partyCode}
 							clearSearch={this.clearSearch}
 						/>
+					
 					</div>
-					{/* <Queue /> */}
+					<Queue 
+							partyCode={this.state.partyCode}
+					/>
 				</div>
 			</Container>
 		);

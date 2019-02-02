@@ -88,8 +88,6 @@ class Player extends Component {
 				position,
 				duration
 			} = state.track_window;
-			console.log(duration);
-			console.log(currentTrack);
 			const trackName = currentTrack.name;
 			const albumName = currentTrack.album.name;
 			const trackImage = currentTrack.album.images[0].url;

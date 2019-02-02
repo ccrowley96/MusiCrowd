@@ -17,8 +17,6 @@ class Search extends Component {
 	}
 
 	componentDidMount = () => {
-		console.log(this.props);
-		// if(this.props.access_token === undefined) redirect to home
 		if (this.props.access_token !== undefined)
 			spotifyApi.setAccessToken(this.props.access_token);
 		
@@ -36,9 +34,7 @@ class Search extends Component {
 				} else {
 					spotifyApi.searchTracks(this.state.searchTerm).then(
 						function(data) {
-							// console.log(data.tracks.items);
-							local_this.props.setResults(data.tracks.items);
-							// local_this.props.setSearchResults(data.tracks.items);
+							local_this.props.setResults(data.tracks.items);	
 						},
 						function(err) {
 							console.error(err);

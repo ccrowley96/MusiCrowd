@@ -38,7 +38,7 @@ router.delete('/delete_room/:party_code', async (req, res) => {
 });
 
 // Returns sorted queue
-router.get('queue/:party_code', async (req, res) => {
+router.get('/queue/:party_code', async (req, res) => {
     let party_code = req.params.party_code;
 
     let room = await Room.findOne({party_code: party_code});
@@ -54,8 +54,6 @@ router.post('/add_song', async (req, res) => {
     
     let party_code = req.body.party_code;
     let song_id = req.body.song.id;
-
-    console.log(party_code);
 
     let room = await Room.findOne({party_code: party_code, "queue.song_id": song_id});
     if (room) {
