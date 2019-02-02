@@ -1,7 +1,16 @@
 .admin {
   min-height: 100vh;
   width: 100%;
-  background-color: #d3d3d3;
+  background-color: #003366;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 
 }
 
+.srchq {
+  display: flex;
+}
+
+.srchq div {
+  width: 50%;
+}

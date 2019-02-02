@@ -15,20 +15,10 @@ class Results extends Component {
 	componentDidUpdate = () => {
 		console.log(this.props.results);
 	};
-	// componentDidUpdate = (prevProps, prevState) => {
-	// 	console.log("here");
-	// 	// if (prevProps.search_results !== this.props.search_results) {
-	// 	// 	console.log("hh");
-	// 	// 	this.setState({
-	// 	// 		results: this.props.search_results
-	// 	// 	});
-	// 	// }
-	// };
 
 	render() {
 		return (
-			<div>
-				results
+			<div className="results">
 				{this.props.results.map((song, i) => (
 					<SongTemplate key={i} song={song} />
 				))}

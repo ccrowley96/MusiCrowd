@@ -29,16 +29,20 @@ class Search extends Component {
 			},
 			() => {
 				var local_this = this;
-				spotifyApi.searchTracks(this.state.searchTerm).then(
-					function(data) {
-						// console.log(data.tracks.items);
-						local_this.props.setResults(data.tracks.items);
-						// local_this.props.setSearchResults(data.tracks.items);
-					},
-					function(err) {
-						console.error(err);
-					}
-				);
+				if (this.state.searchTerm === "") {
+					local_this.props.setResults([]);
+				} else {
+					spotifyApi.searchTracks(this.state.searchTerm).then(
+						function(data) {
+							// console.log(data.tracks.items);
+							local_this.props.setResults(data.tracks.items);
+							// local_this.props.setSearchResults(data.tracks.items);
+						},
+						function(err) {
+							console.error(err);
+						}
+					);
+				}
 			}
 		);
 	};

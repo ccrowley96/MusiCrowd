@@ -21,12 +21,14 @@ class Admin extends Component {
 
 	render() {
 		return (
-			<div className="admin">
-				<Container>
-					<Search setResults={this.setResults} />
-					<Results results={this.state.results} />
-				</Container>
-			</div>
+			<Container>
+				<div className="admin">
+					<div>
+						<Search setResults={this.setResults} />
+						<Results results={this.state.results} />
+					</div>
+				</div>
+			</Container>
 		);
 	}
 }
