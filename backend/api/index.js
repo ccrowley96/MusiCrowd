@@ -142,15 +142,19 @@ router.get('/nextsong/:party_code/', async (req, res) => {
 
     try {
         let room = await Room.findOne({party_code: party_code});
+        if (room.queue.length === 0) {
+            return res.status(400).send({error: 'No songs in queue.'})
+        }
         max = 0;
-        song_id = 0;
         for (i = 0; i < room.queue.length; i++) {
             if (room.queue[i].votes >= max) {
                 max = room.queue[i].votes;
-                song_id = room.queue[i].song_id;
+                var song_payload = room.queue[i].song_payload;
             }
         }
-        res.status(200).send(song_id);
+
+        await Room.deleteOne({party_code: party_code, 'queue.song_id': song_payload.id});
+        res.status(200).send(song_payload);
     } catch (e) {
         res.status(400).send({error: 'Could not retrieve latest song.'})
     }
