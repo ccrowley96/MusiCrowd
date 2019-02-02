@@ -3,6 +3,7 @@ import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { Container } from "reactstrap";
 import { connect } from "react-redux";
 import Search from "../Search/Search";
+import Player from "../Player/Player";
 
 import "./Admin.css";
 import Results from "../Results/Results";
@@ -21,12 +22,15 @@ class Admin extends Component {
 
 	render() {
 		return (
-			<div className="admin">
-				<Container>
-					<Search setResults={this.setResults} />
-					<Results results={this.state.results} />
-				</Container>
-			</div>
+			<Container>
+				<Player />
+				<div className="admin">
+					<div>
+						<Search setResults={this.setResults} />
+						<Results results={this.state.results} />
+					</div>
+				</div>
+			</Container>
 		);
 	}
 }

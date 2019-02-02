@@ -1,0 +1,6 @@
+.results {
+  max-height: 75vh;
+  overflow: hidden;
+  overflow-y: auto;
+  margin-top: 5%;
+}
