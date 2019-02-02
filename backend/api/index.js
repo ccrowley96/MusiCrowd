@@ -97,12 +97,12 @@ router.post('/remove_song', async (req,res) =>{
 router.post('/vote', async (req, res) => {
     let vote = req.body.vote;
     let party_code = req.body.party_code;
-    let song_id = req.body.song.id;
+    let song_id = req.body.song_id;
 
     let room;
     let song;
     
-    if (vote !== 1 && vote !== -1) {
+    if (vote > 2 || vote < -2) {
         return res.status(400).send({error: 'Invalid vote code.'});
     }
 
@@ -153,7 +153,7 @@ router.get('/nextsong/:party_code/', async (req, res) => {
             }
         }
 
-        await Room.deleteOne({party_code: party_code, 'queue.song_id': song_payload.id});
+        await Room.findOneAndUpdate({party_code: party_code}, { $pull: { queue: { song_id: song_payload.id}}});
         res.status(200).send(song_payload);
     } catch (e) {
         res.status(400).send({error: 'Could not retrieve latest song.'})
