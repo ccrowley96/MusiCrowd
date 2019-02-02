@@ -7,7 +7,7 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
-require('dotenv').config()
+require("dotenv").config();
 var express = require("express"); // Express web server framework
 var request = require("request"); // "Request" library
 var cors = require("cors");
@@ -48,7 +48,8 @@ app.get("/login", function(req, res) {
 	res.cookie(stateKey, state);
 
 	// your application requests authorization
-	var scope = "user-read-private user-read-email user-read-playback-state";
+	var scope =
+		"user-read-private user-read-email user-read-playback-state streaming user-read-birthdate";
 	res.redirect(
 		"https://accounts.spotify.com/authorize?" +
 			querystring.stringify({
@@ -113,7 +114,7 @@ app.get("/callback", function(req, res) {
 
 				// we can also pass the token to the browser to make requests from there
 				res.redirect(
-					"/#" +
+					"http://localhost:3000/#" +
 						querystring.stringify({
 							access_token: access_token,
 							refresh_token: refresh_token
@@ -121,7 +122,7 @@ app.get("/callback", function(req, res) {
 				);
 			} else {
 				res.redirect(
-					"/#" +
+					"http://localhost:3000/#" +
 						querystring.stringify({
 							error: "invalid_token"
 						})
@@ -159,7 +160,6 @@ app.get("/refresh_token", function(req, res) {
 });
 
 app.use("/api", api);
-
 
 console.log("Listening on 8888");
 app.listen(8888);

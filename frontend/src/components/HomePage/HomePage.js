@@ -84,7 +84,9 @@ class HomePage extends Component {
 					{this.state.errMessage && (
 						<Alert color="danger">room does not exist</Alert>
 					)}
-					<a href="http://localhost:8888/login">Create Room</a>
+					<button color="secondary">
+						<a href="http://localhost:8888/login">Create Room</a>
+					</button>
 				</div>
 			</div>
 		);

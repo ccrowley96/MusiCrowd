@@ -1,7 +1,7 @@
 .admin {
   min-height: 100vh;
   width: 100%;
-  background-color: #003366;
+  /* background-color: #FFFFFF;  */
   display: grid;
   grid-template-columns: 2fr 1fr;
 

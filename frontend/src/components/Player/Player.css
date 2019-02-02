@@ -1,0 +1,27 @@
+.player {
+  display: flex;
+  flex-direction: row;
+  max-height: 100px;
+  width: 50%;
+  align-content: center;
+  text-align: left;
+  background-color: rgb(169, 169, 169, 0.5);
+  color: #FFFFFF;
+}
+
+.player img {
+  width: 100px;
+  margin-right: 5%;
+}
+
+.svg {
+  width: 100%;
+}
+
+.svg svg {
+  cursor: pointer;
+}
+
+.svgIcon {
+  margin-left: 10%;
+}
