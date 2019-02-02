@@ -95,6 +95,7 @@ router.post('/remove/:room_id/:song_id', async (req,res) =>{
 
 });
 
+// Vote on song
 router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
     let room_id = req.params.room_id;
     let song_id = req.params.song_id;
@@ -128,6 +129,32 @@ router.post('/vote/:room_id/:song_id/:vote', async (req, res) => {
         return res.status(200).send({message: `Voted for song ${song_id}`});
     } catch (e) {
         return res.status(400).send({error: 'Could not update vote count.'});
+    }
+});
+
+router.get('/nextsong/:room_id/', async (req, res) => {
+    let room_id = req.params.room_id;
+
+    // Check to see if room exists
+    try {
+        room = await Room.findOne({number: room_id});
+    } catch (e) {
+        return res.status(400).send({error: 'Room does not exist.'});
+    }
+
+    try {
+        let room = await Room.findOne({number: room_id});
+        max = 0;
+        song_id = 0;
+        for (i = 0; i < room.queue.length; i++) {
+            if (room.queue[i].votes >= max) {
+                max = room.queue[i].votes;
+                song_id = room.queue[i].song_id;
+            }
+        }
+        res.status(200).send(song_id);
+    } catch (e) {
+        res.status(400).send({error: 'Could not retrieve latest song.'})
     }
 });
 
