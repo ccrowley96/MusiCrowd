@@ -85,8 +85,8 @@ router.post('/remove/:room_id/:song_id', async (req,res) =>{
     }
 
     try{
-        await Room.findOneAndUpdate({number: room_id}, { $pull: {'queue.song_id': song_id}});
-        return resizeTo.status(200).send({message: 'Song deleted from queue.'})
+        await Room.findOneAndUpdate({number: room_id}, { $pull: { queue: { song_id: song_id}}});
+        return res.status(200).send({message: 'Song deleted from queue.'})
     }catch(e){
         return res.status(400).send({error: 'Could not delete song from queue.'});
     }
