@@ -19,3 +19,12 @@
 .input button {
   margin: 0 2%;
 }
+
+.cr {
+  min-width: 100%;
+
+}
+
+.cr a {
+  color: white;
+}
