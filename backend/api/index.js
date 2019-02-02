@@ -150,10 +150,10 @@ router.get('/nextsong/:party_code/', async (req, res) => {
         for (i = 0; i < room.queue.length; i++) {
             if (room.queue[i].votes >= max) {
                 max = room.queue[i].votes;
-                song_id = room.queue[i].song_id;
+                var song_payload = room.queue[i].song_payload;
             }
         }
-        res.status(200).send(song_id);
+        res.status(200).send(song_payload);
     } catch (e) {
         res.status(400).send({error: 'Could not retrieve latest song.'})
     }
