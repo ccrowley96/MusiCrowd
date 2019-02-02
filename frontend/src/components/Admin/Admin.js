@@ -17,7 +17,7 @@ class Admin extends Component {
 			results: [],
 			roomCreated: false,
 			redirect: false,
-			partyCode: null
+			partyCode: undefined
 		};
 	}
 
@@ -26,8 +26,8 @@ class Admin extends Component {
 			let payload = {token: this.props.access_token};
 			axios.post(`/api/create_room`, payload )
 			.then((response) => {
-				console.log('here',response);
-				this.setState({roomCreated: true, partyCode: response.party_code});
+				console.log('response',response);
+				this.setState({roomCreated: true, partyCode: response.data.party_code});
 			})
 			.catch((err) => console.log(err))
 		} else {
@@ -58,6 +58,7 @@ class Admin extends Component {
 						<Search setResults={this.setResults} />
 						<Results
 							results={this.state.results}
+							partyCode={this.state.partyCode}
 							clearSearch={this.clearSearch}
 						/>
 					</div>

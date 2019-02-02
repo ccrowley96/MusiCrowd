@@ -18,7 +18,8 @@ class Results extends Component {
 	};
 
 	handleSongClick = (song) => {
-		let payload = {song:song, party_code: 1};
+		let payload = {song:song, party_code: this.props.partyCode};
+		console.log('clicked song in room: ', this.props.partyCode);
 		//TODO change room ID to stateful
 		axios.post(`/api/add_song`, payload )
 		.then(() => {
