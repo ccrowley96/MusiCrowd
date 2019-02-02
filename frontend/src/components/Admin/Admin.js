@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { Container } from "reactstrap";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Search from "../Search/Search";
 import Player from "../Player/Player";
@@ -13,9 +14,19 @@ class Admin extends Component {
 		super(props);
 		this.state = {
 			results: [],
-			clearSearch: false
+			clearSearch: false,
+			redirect: false
 		};
 	}
+
+	componentDidMount = () => {
+		if (this.props.access_token) {
+		} else {
+			this.setState({
+				redirect: true
+			});
+		}
+	};
 
 	setResults = results => {
 		this.setState({ results }, () => console.log(this.state.results));
@@ -25,16 +36,20 @@ class Admin extends Component {
 		this.setState({
 			results: []
 		});
-	}
+	};
 
 	render() {
+		if (this.state.redirect) return <Redirect to="/" />;
 		return (
 			<Container>
 				<Player />
 				<div className="admin">
 					<div>
-						<Search setResults={this.setResults}/>
-						<Results results={this.state.results} clearSearch={this.clearSearch} />
+						<Search setResults={this.setResults} />
+						<Results
+							results={this.state.results}
+							clearSearch={this.clearSearch}
+						/>
 					</div>
 					{/* <Queue /> */}
 				</div>
