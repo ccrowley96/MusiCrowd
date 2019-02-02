@@ -142,6 +142,9 @@ router.get('/nextsong/:party_code/', async (req, res) => {
 
     try {
         let room = await Room.findOne({party_code: party_code});
+        if (room.queue.length === 0) {
+            return res.status(400).send({error: 'No songs in queue.'})
+        }
         max = 0;
         song_id = 0;
         for (i = 0; i < room.queue.length; i++) {
