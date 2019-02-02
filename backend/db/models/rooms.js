@@ -10,6 +10,10 @@ const roomSchema = mongoose.Schema({
           type: String,
           required: true
         }, 
+        song_payload : {
+          type: Object,
+          required: true
+        },
         votes: {
           type: Number,
           default: 0

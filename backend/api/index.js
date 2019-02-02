@@ -54,9 +54,10 @@ router.get('/:room_id/queue', async (req, res) => {
 
 // Add a song to room
 ///:room_id/:song_id/
-router.post('/add/:room_id/:song_id', async (req, res) => {
-    let room_id = req.params.room_id;
-    let song_id = req.params.song_id;
+router.post('/add_song', async (req, res) => {
+    console.log('REQ BODY', req.body);
+    let room_id = req.body.room_id;
+    let song_id = req.body.song.id;
 
     let room = await Room.findOne({number: room_id, "queue.song_id": song_id});
     if (room) {
@@ -65,11 +66,12 @@ router.post('/add/:room_id/:song_id', async (req, res) => {
 
     let song = {
         song_id: song_id,
-        votes: 0
+        votes: 0,
+        song_payload: req.body.song
     }
 
     try {
-        await Room.findOneAndUpdate({number: room_id}, { $push: { queue: song }}) // IDK
+        await Room.findOneAndUpdate({number: room_id}, { $push: { queue: song }})
         return res.status(200).send({message: 'Song added to queue!'});
     } catch (e) {
         return res.status(400).send({error: 'Could not add song to queue'});

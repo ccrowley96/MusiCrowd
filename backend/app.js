@@ -10,6 +10,7 @@
 require("dotenv").config();
 var express = require("express"); // Express web server framework
 var request = require("request"); // "Request" library
+const bodyParser = require('body-parser');
 var cors = require("cors");
 var querystring = require("querystring");
 var cookieParser = require("cookie-parser");
@@ -38,6 +39,10 @@ var generateRandomString = function(length) {
 var stateKey = "spotify_auth_state";
 
 var app = express();
+
+//Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname + "/public"))
 	.use(cors())
