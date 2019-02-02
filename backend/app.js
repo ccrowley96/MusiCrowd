@@ -12,6 +12,7 @@ var request = require("request"); // "Request" library
 var cors = require("cors");
 var querystring = require("querystring");
 var cookieParser = require("cookie-parser");
+var api = require("./api/index.js");
 
 var client_id = "f0879cf9bfc746c1b748bb0f30cc7342"; // Your client id
 var client_secret = "f6c3111f9d02426d9134c7feb26f0b12"; // Your secret
@@ -111,7 +112,7 @@ app.get("/callback", function(req, res) {
 
 				// we can also pass the token to the browser to make requests from there
 				res.redirect(
-					"http://localhost:3000/#" +
+					"/#" +
 						querystring.stringify({
 							access_token: access_token,
 							refresh_token: refresh_token
@@ -119,7 +120,7 @@ app.get("/callback", function(req, res) {
 				);
 			} else {
 				res.redirect(
-					"http://localhost:3000/#" +
+					"/#" +
 						querystring.stringify({
 							error: "invalid_token"
 						})
@@ -155,6 +156,9 @@ app.get("/refresh_token", function(req, res) {
 		}
 	});
 });
+
+app.use("/api", api);
+
 
 console.log("Listening on 8888");
 app.listen(8888);
