@@ -97,12 +97,12 @@ router.post('/remove_song', async (req,res) =>{
 router.post('/vote', async (req, res) => {
     let vote = req.body.vote;
     let party_code = req.body.party_code;
-    let song_id = req.body.song.id;
+    let song_id = req.body.song_id;
 
     let room;
     let song;
     
-    if (vote !== 1 && vote !== -1) {
+    if (vote > 2 || vote < -2) {
         return res.status(400).send({error: 'Invalid vote code.'});
     }
 

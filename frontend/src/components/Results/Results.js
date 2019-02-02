@@ -27,7 +27,7 @@ class Results extends Component {
 			<div className="results">
 					{this.props.results.map((song, i) => (
 						<div className ="song-item" key ={i} onClick={()=> this.handleSongClick(song)}>
-							<SongTemplate key={i} song={song} />
+							<SongTemplate key={i} song={song} voterFlag={false} />
 						</div>
 					))}
 			</div>
