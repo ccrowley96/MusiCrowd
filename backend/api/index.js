@@ -161,4 +161,16 @@ router.get('/nextsong/:party_code/', async (req, res) => {
     }
 });
 
+router.get('/room/:party_code', async(req, res) => {
+    let party_code = req.query.party_code;
+    let room = await Room.findOne({party_code: party_code});
+    if (!room) {
+        return res.status(404).send({error: 'Room does not exist.'});
+    }
+    let token = room.auth_token;
+    let queue = room.queue;
+
+    res.status(200).send({token, queue});
+});
+
 module.exports = router;
