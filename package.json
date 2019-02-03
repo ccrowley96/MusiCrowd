@@ -4,8 +4,8 @@
   "description": "Collaborative Spotify Democracy",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
-    "heroku-postbuild": "cd frontend && npm install && npm start",
+    "start": "node backend/app.js",
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
