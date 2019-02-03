@@ -46,3 +46,15 @@
 .playerContainer {
   padding-top: 40px;
 }
+
+.room-player img {
+  width: 250px;
+}
+
+.room-player h3 {
+  color: white;
+}
+
+.room-player h5 {
+  color: white;
+}
