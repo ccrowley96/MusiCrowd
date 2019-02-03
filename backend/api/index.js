@@ -146,10 +146,11 @@ router.get('/nextsong/:party_code/', async (req, res) => {
             return res.status(400).send({error: 'No songs in queue.'})
         }
         max = Number.NEGATIVE_INFINITY;
+        var song_payload = 0;
         for (i = 0; i < room.queue.length; i++) {
             if (room.queue[i].votes > max) {
                 max = room.queue[i].votes;
-                var song_payload = room.queue[i].song_payload;
+                song_payload = room.queue[i].song_payload;
             }
         }
 
