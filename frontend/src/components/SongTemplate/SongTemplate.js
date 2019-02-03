@@ -6,6 +6,7 @@ import {
 	faCaretDown,
 	faTimes
 } from "@fortawesome/free-solid-svg-icons";
+import {Container, Row, Col} from "reactstrap";
 import { Media } from "reactstrap";
 
 import "./SongTemplate.css";
@@ -125,8 +126,12 @@ export default class SongTemplate extends Component {
 					src={this.props.song.album.images[0].url}
 					alt="album cover"
 				/>
-				<h4>{this.props.song.name}</h4>
-				{this.renderVoter()}
+				<Col>
+				<Row className="songName">{this.props.song.name}</Row>
+				<Row className="artistName">{this.props.song.artists[0].name}</Row>
+				</Col>
+				
+				<Col>{this.renderVoter()}</Col>
 				{this.renderDelete()}
 			</div>
 		);
