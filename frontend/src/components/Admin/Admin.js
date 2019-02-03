@@ -105,7 +105,6 @@ class Admin extends Component {
 						>
 							start session
 						</Button>
-					)}
 					<a
 						href={`https://musicrowd.herokuapp.com/tvmode?=${
 							this.state.partyCode
@@ -116,6 +115,7 @@ class Admin extends Component {
 						<FontAwesomeIcon icon={faTv} size={"3x"} color="white"/>
 					</a>
 					</div>
+					)}
 				</div>
 				<div className="roomCode">
 				<h4>
