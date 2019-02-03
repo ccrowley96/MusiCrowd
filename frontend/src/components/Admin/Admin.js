@@ -87,19 +87,27 @@ class Admin extends Component {
 					currentlyPlaying={this.state.currentlyPlaying}
 					loadSong={this.loadSong}
 				/>
-				{!this.state.started && this.state.queue.length !== 0 && (
-					<Button
-						className="startSessionButton"
-						onClick={() => {
-							this.loadSong();
-							this.setState({
-								started: true
-							});
-						}}
-					>
-						start session
-					</Button>
-				)}
+				<div style={{height: "80px", marginTop: "30px"}}>
+					{!this.state.started && this.state.queue.length !== 0 && (
+						<Button
+							className="startSessionButton"
+							onClick={() => {
+								this.loadSong();
+								this.setState({
+									started: true
+								});
+							}}
+						>
+							start session
+						</Button>
+
+					)}
+				</div>
+				<div className="roomCode">
+				<h4>
+					<b>Room - </b>{this.state.partyCode}
+				</h4>
+				</div>
 				<div className="admin">
 					<div>
 						<Search setResults={this.setResults} />
