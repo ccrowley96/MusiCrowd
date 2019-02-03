@@ -39,7 +39,7 @@ class Queue extends Component {
             queue: res.data
           }, () => console.log('refresh queue: ', this.state.queue))
         });
-      }, 1000);
+      }, 200);
 
     }
 
@@ -49,7 +49,7 @@ class Queue extends Component {
       return(
         <div className="queue">
           <h1>Queue</h1>
-          {this.state.queue.map((song) => <SongTemplate key={song.song_payload.id}  song={song.song_payload} votes={song.votes} voterFlag={true} partyCode={this.props.partyCode}/>)}
+          {this.state.queue.map((song) => <SongTemplate key={song.song_payload.id}  song={song.song_payload} votes={song.votes} voterFlag={true} partyCode={this.props.partyCode} isAdmin={true}/>)}
         </div>
       );
     }

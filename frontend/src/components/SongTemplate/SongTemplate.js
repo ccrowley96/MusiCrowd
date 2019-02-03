@@ -3,7 +3,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faCaretUp,
-	faCaretDown
+	faCaretDown,
+	faTimes
 } from "@fortawesome/free-solid-svg-icons";
 import { Media } from "reactstrap";
 
@@ -13,11 +14,13 @@ export default class SongTemplate extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			votes: 0
+			vote: 0,
+			voteBlock: false
 		}
 	  }
 
-	  onVote(vote_button){
+	onVote(vote_button){
+		this.setState({voteBlock:true});
 		let vote_to_send = 0;
 		let local_vote_to_update = 0;
 
@@ -55,15 +58,29 @@ export default class SongTemplate extends Component {
 		
 		axios.post(`/api/vote`, payload)
 		.then((res) => {
-		  if(res.status == 200){
-			this.setState({vote:local_vote_to_update});
-		  }
+			if(res.status == 200){
+			this.setState({vote:local_vote_to_update, voteBlock:false});
+			}
 		})
 		.catch((err) => console.log(err))
-	  }
+	}
+
+	onDelete(){
+		let payload = {
+			party_code: this.props.partyCode,
+			song: this.props.song
+		}
+		axios.post(`/api/remove_song`, payload)
+		.then((res) => {
+			if(res.status == 200){
+				this.setState({refreshed: true});
+			}
+		})
+		.catch((err) => console.log(err))
+		}
+	
 
 	renderVoter(){
-		console.log(this.props.song);
 		if(this.props.voterFlag){
 			return (
 				<div className = "voter">
@@ -71,15 +88,31 @@ export default class SongTemplate extends Component {
 							<p>{this.props.votes}</p>
 							<FontAwesomeIcon
 								icon={faCaretUp}
-								onClick={() => this.onVote(1)}
+								onClick={this.state.voteBlock ? undefined: () => this.onVote(1)}
 								size={"4x"}
+								style={this.state.vote == 1 ? {color: 'Aqua'} : undefined}
 							/>
 							<FontAwesomeIcon
 								icon={faCaretDown}
-								onClick={() => this.onVote(-1)}
+								onClick={this.state.voteBlock ? undefined: () => this.onVote(-1)}
 								size={"4x"}
+								style={this.state.vote == -1 ? {color: 'red'} : undefined}
 							/>
 						</span>
+				</div>
+			)
+		}
+	}
+	renderDelete(){
+		if(this.props.isAdmin){
+			return (
+				<div className = "delete">
+					<FontAwesomeIcon
+						icon={faTimes}
+						onClick={() => this.onDelete()}
+						size={"1x"}
+						style={{color: 'Red'}}
+					/>
 				</div>
 			)
 		}
@@ -94,6 +127,7 @@ export default class SongTemplate extends Component {
 				/>
 				<p>{this.props.song.name}</p>
 				{this.renderVoter()}
+				{this.renderDelete()}
 			</div>
 		);
 	}
