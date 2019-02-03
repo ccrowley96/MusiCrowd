@@ -22,7 +22,10 @@ const roomSchema = mongoose.Schema({
           type: Number,
           default: 0
         }
-    }]
+    }],
+    currently_playing: {
+      type: Object
+    }
   });
   
   const Room = mongoose.model('Room', roomSchema);
