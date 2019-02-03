@@ -26,7 +26,7 @@ class HomePage extends Component {
 				() => this.props.setAccessToken(token)
 			);
 		}
-		// }
+		console.log(this.props.history.location);
 	};
 
 	getHashParams() {
@@ -63,6 +63,12 @@ class HomePage extends Component {
 				errMessage: true
 			});
 		}
+	};
+
+	setErrMessage = () => {
+		this.setState({
+			errMessage: true
+		});
 	};
 
 	render() {

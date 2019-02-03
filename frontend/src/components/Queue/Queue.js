@@ -32,23 +32,39 @@ class Queue extends Component {
 	apiRefresh = () => {
 		setTimeout(() => {
 			axios.get(`/api/queue/${this.props.partyCode}`).then(res => {
-				this.setState({
-					queue: res.data
-				}, () => this.props.setQueue(this.state.queue));
+				this.setState(
+					{
+						queue: res.data
+					},
+					() => this.props.setQueue(this.state.queue)
+				);
 			});
 		}, 500);
 	};
 
-      
-    render() {
-      if(!this.state.queue) return <div><p>Loading Queue...</p></div>
-      return(
-        <div className="queue">
-          <h1>Queue</h1>
-          {this.state.queue.map((song) => <SongTemplate key={song.song_payload.id}  song={song.song_payload} votes={song.votes} voterFlag={true} partyCode={this.props.partyCode} isAdmin={true}/>)}
-        </div>
-      );
-    }
+	render() {
+		if (!this.state.queue)
+			return (
+				<div>
+					<p>Loading Queue...</p>
+				</div>
+			);
+		return (
+			<div className="queue">
+				<h1>Queue</h1>
+				{this.state.queue.map(song => (
+					<SongTemplate
+						key={song.song_payload.id}
+						song={song.song_payload}
+						votes={song.votes}
+						voterFlag={true}
+						partyCode={this.props.partyCode}
+						isAdmin={this.props.options}
+					/>
+				))}
+			</div>
+		);
+	}
 }
 
 const actions = { setAccessToken, setSearchResults };
