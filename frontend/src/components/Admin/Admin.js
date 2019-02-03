@@ -4,9 +4,15 @@ import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { Container, Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faTv
+} from "@fortawesome/free-solid-svg-icons";
 import Search from "../Search/Search";
 import Player from "../Player/Player";
 import Queue from "../Queue/Queue";
+import TvMode from "../TvMode/TvMode";
+
 
 import "./Admin.css";
 import Results from "../Results/Results";
@@ -21,7 +27,8 @@ class Admin extends Component {
 			partyCode: undefined,
 			currentlyPlaying: undefined,
 			started: false,
-			queue: []
+			queue: [],
+			toggle: false
 		};
 	}
 
@@ -73,6 +80,12 @@ class Admin extends Component {
 		});
 	};
 
+	toggle = () => {
+		this.setState({
+			toggle: !this.state.toggle
+		})
+	}
+
 	render() {
 		if (this.state.redirect) return <Redirect to="/" />;
 		if (!this.state.roomCreated)
@@ -87,7 +100,8 @@ class Admin extends Component {
 					currentlyPlaying={this.state.currentlyPlaying}
 					loadSong={this.loadSong}
 				/>
-				<div style={{ height: "80px", marginTop: "30px" }}>
+				<FontAwesomeIcon icon={faTv} size={"3x"} onClick={this.toggle}/>
+				{!this.state.toggle && (<div style={{ height: "80px", marginTop: "30px" }}>
 					{!this.state.started && this.state.queue.length !== 0 && (
 						<Button
 							className="startSessionButton"
@@ -100,25 +114,14 @@ class Admin extends Component {
 						>
 							start session
 						</Button>
-					)}
-					<Button>
-						<a
-							href={`https://musicrowd.herokuapp.com/tvmode?=${
-								this.state.partyCode
-							}`}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							tvmode
-						</a>
-					</Button>
-				</div>
-				<div className="roomCode">
+					)}			
+				</div>)}
+				{!this.state.toggle && (<div className="roomCode">
 				<h4>
 					<b>Party Code: </b>{this.state.partyCode}
 				</h4>
-				</div>
-				<div className="admin">
+				</div>)}
+				{!this.state.toggle && (<div className="admin">
 					<div>
 						<Search setResults={this.setResults} />
 						<Results
@@ -132,7 +135,8 @@ class Admin extends Component {
 						options={true}
 						partyCode={this.state.partyCode}
 					/>
-				</div>
+				</div>)}
+				{this.state.toggle && <TvMode currentlyPlaying={this.state.currentlyPlaying} code={this.state.partyCode}/>}
 			</Container>
 		);
 	}
