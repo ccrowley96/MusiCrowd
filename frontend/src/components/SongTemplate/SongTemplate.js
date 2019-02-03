@@ -95,7 +95,7 @@ export default class SongTemplate extends Component {
 			return (
 				<div className="voter">
 					<span>
-						<p>{this.props.votes}</p>
+						<h3 className="voteCount">{this.props.votes}</h3>
 						<FontAwesomeIcon
 							icon={faCaretUp}
 							onClick={

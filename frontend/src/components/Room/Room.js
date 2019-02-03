@@ -37,7 +37,7 @@ class Room extends Component {
 						console.log(res.data)
 					);
 				});
-		}, 500);
+		}, 1000);
 	};
 
 	componentDidMount = () => {

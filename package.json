@@ -2,7 +2,7 @@
   "name": "decibois",
   "version": "1.0.0",
   "description": "Collaborative Spotify Democracy",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node backend/app.js",
     "heroku-postbuild": "cd frontend && npm install && npm run build",

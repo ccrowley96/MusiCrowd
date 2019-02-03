@@ -39,7 +39,7 @@ class Queue extends Component {
 					() => this.props.setQueue(this.state.queue)
 				);
 			});
-		}, 500);
+		}, 1000);
 	};
 
 	render() {
