@@ -105,7 +105,7 @@ class Admin extends Component {
 					)}
 
 					<a
-						href={`http://www.musicrowd.ca/tvmode?=${
+						href={`https://www.musicrowd.ca/tvmode?=${
 							this.state.partyCode
 						}`}
 						target="_blank"
