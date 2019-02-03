@@ -34,7 +34,7 @@ class Queue extends Component {
 			axios.get(`/api/queue/${this.props.partyCode}`).then(res => {
 				this.setState({
 					queue: res.data
-				});
+				}, () => this.props.setQueue(this.state.queue));
 			});
 		}, 500);
 	};

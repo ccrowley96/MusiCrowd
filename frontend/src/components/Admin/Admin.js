@@ -19,7 +19,9 @@ class Admin extends Component {
 			roomCreated: false,
 			redirect: false,
 			partyCode: undefined,
-			currentlyPlaying: undefined
+			currentlyPlaying: undefined,
+			started: false,
+			queue: []
 		};
 	}
 
@@ -65,6 +67,12 @@ class Admin extends Component {
 			.catch(err => console.log(err));
 	};
 
+	setQueue=(queue) => {
+		this.setState({
+			queue
+		})
+	}
+
 	render() {
 		if (this.state.redirect) return <Redirect to="/" />;
 		if (!this.state.roomCreated)
@@ -79,7 +87,9 @@ class Admin extends Component {
 					currentlyPlaying={this.state.currentlyPlaying}
 					loadSong={this.loadSong}
 				/>
-				<Button onClick={() => this.loadSong()}>start session</Button>
+				{(!this.state.started && (this.state.queue.length !== 0)) && <Button className="startSessionButton" onClick={() => {this.loadSong(); this.setState({
+					started: true
+				})}}>start session</Button>}
 				<div className="admin">
 					<div>
 						<Search setResults={this.setResults} />
@@ -89,7 +99,7 @@ class Admin extends Component {
 							clearSearch={this.clearSearch}
 						/>
 					</div>
-					<Queue partyCode={this.state.partyCode} />
+					<Queue setQueue={this.setQueue} partyCode={this.state.partyCode} />
 				</div>
 			</Container>
 		);
