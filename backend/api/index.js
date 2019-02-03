@@ -154,6 +154,8 @@ router.get('/nextsong/:party_code/', async (req, res) => {
             }
         }
 
+        await Room.findOneAndUpdate({party_code: party_code}, { $set: {currently_playing: song_payload} });
+
         await Room.findOneAndUpdate({party_code: party_code}, { $pull: { queue: { song_id: song_payload.id}}});
         res.status(200).send(song_payload);
     } catch (e) {
@@ -171,6 +173,19 @@ router.get('/room/:party_code', async(req, res) => {
     let queue = room.queue;
 
     res.status(200).send({token, queue});
+});
+
+router.get('/currently_playing/:party_code', async (req, res) => {
+    let party_code = req.params.party_code;
+    let room = await Room.findOne({party_code: party_code});
+    if (!room) {
+        return res.status(404).send({error: 'Room does not exist.'});
+    }
+    if (!room.currently_playing) {
+        return res.status(404).send({error: 'No song currently playing.'});
+    }
+    let playing = room.currently_playing;
+    res.status(200).send(playing);
 });
 
 module.exports = router;
