@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container } from "reactstrap";
 import "./TvMode.css";
 import QRCode from "qrcode";
 
@@ -36,11 +37,23 @@ export default class TvMode extends Component {
 
 	render() {
 		return (
-			<div className="tvmode">
+			<Container className="tvmode">
 				<h1>Tv Mode</h1>
 				<h3>Room - {this.state.code}</h3>
+				<div id="bars">
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+					<div className="bar" />
+				</div>
 				{this.state.url && <img src={this.state.url} alt="qrcode" />}
-			</div>
+			</Container>
 		);
 	}
 }
