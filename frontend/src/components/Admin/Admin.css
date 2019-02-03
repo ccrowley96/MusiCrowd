@@ -3,10 +3,9 @@
   width: 100%;
   /* background-color: #FFFFFF;  */
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   margin-top: 10%;
   grid-gap: 5%;
-
 }
 
 @media only screen and (max-width: 900px) {

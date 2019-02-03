@@ -4,7 +4,7 @@
   width: 100%;
   position: relative;
   /* background-color: #003366; */
-  background-image: url("https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&auto=format&fit=crop&w=2767&q=80");
+  background-image: linear-gradient(#de6262, #ffb88c);
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: 5%;

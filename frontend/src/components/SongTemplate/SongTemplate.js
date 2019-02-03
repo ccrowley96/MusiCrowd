@@ -121,11 +121,13 @@ export default class SongTemplate extends Component {
 	render() {
 		return (
 			<div className="template">
-				<img
-					src={this.props.song.album.images[0].url}
-					alt="album cover"
-				/>
-				<p>{this.props.song.name}</p>
+				<div className="songDetail">
+					<img
+						src={this.props.song.album.images[0].url}
+						alt="album cover"
+					/>
+					<h4>{this.props.song.name}</h4>
+				</div>
 				{this.renderVoter()}
 				{this.renderDelete()}
 			</div>
