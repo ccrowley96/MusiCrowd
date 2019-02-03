@@ -153,7 +153,7 @@ router.get('/nextsong/:party_code/', async (req, res) => {
             }
         }
 
-        await Room.deleteOne({party_code: party_code, 'queue.song_id': song_payload.id});
+        await Room.findOneAndUpdate({party_code: party_code}, { $pull: { queue: { song_id: song_payload.id}}});
         res.status(200).send(song_payload);
     } catch (e) {
         res.status(400).send({error: 'Could not retrieve latest song.'})
