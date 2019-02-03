@@ -93,9 +93,11 @@ class HomePage extends Component {
 					{this.state.errMessage && (
 						<Alert color="danger">room does not exist</Alert>
 					)}
+						<a href="https://musicrowd.herokuapp.com/login">
 					<Button color="secondary" className="cr">
-						<a href="https://musicrowd.herokuapp.com/login">Create Room</a>
+					Create Room
 					</Button>
+					</a>
 				</div>
 			</div>
 		);

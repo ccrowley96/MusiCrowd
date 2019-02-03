@@ -106,7 +106,7 @@ class Admin extends Component {
 						</Button>
 					)}
 					<a
-						href={`https://musicrowd.herokuapp.comtvmode?=${
+						href={`https://musicrowd.herokuapp.com/tvmode?=${
 							this.state.partyCode
 						}`}
 						target="_blank"
