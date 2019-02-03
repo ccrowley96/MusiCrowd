@@ -12,8 +12,7 @@
   color: #FFFFFF;
 }
 
-.startSessionButton{
-  margin-top: 20px;
+.startSessionButton {
   text-align: left;
 }
 
@@ -25,12 +24,12 @@
   }
 }
 
-.buttons-admin{
+.buttons-admin {
   display: flex;
   flex-direction: column;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
 }
@@ -43,6 +42,6 @@ a{
   width: 50%;
 }
 
-.playerContainer{
+.playerContainer {
   padding-top: 40px;
 }
