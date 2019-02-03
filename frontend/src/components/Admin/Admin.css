@@ -4,7 +4,7 @@
   /* background-color: #FFFFFF;  */
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 10%;
+  margin-top: 3%;
   grid-gap: 5%;
 }
 

@@ -1,7 +1,7 @@
 .player {
   display: flex;
   flex-direction: row;
-  max-height: 100px;
+  max-height: 150px;
   align-content: center;
   text-align: left;
   background-color: rgb(169, 169, 169, 0.5);
@@ -14,7 +14,7 @@
 }
 
 .player img {
-  width: 100px;
+  width: 150px;
   margin-right: 5%;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
@@ -22,9 +22,11 @@
 
 .player p{
   margin-bottom: 0px;
+  font-size: 1.3rem;
 }
 .player h5{
-  margin-top:5px;
+  margin-top:10px;
+  font-size: 1.3rem;
 }
 
 .svg {
@@ -41,4 +43,21 @@
   align-content: center;
   justify-content: center;
 
+}
+
+@media only screen and (max-width: 800px) {
+  .player p{
+    font-size:.95rem;
+  }
+  .player h5{
+    font-size:.95rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .player p{
+    font-size:.90rem;
+  }
+  .player h5{
+    font-size:.90rem;
+  }
 }
