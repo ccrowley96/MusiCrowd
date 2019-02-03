@@ -47,7 +47,7 @@ class Search extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="search">
 				<h1>Search Song</h1>
 				<InputGroup className="inpgroup">
 					<Input

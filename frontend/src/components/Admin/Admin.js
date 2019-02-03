@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { setAccessToken, setSearchResults } from "../../actions/dataAction";
-import { Container } from "reactstrap";
+import { Container, Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Search from "../Search/Search";
@@ -74,12 +74,12 @@ class Admin extends Component {
 				</div>
 			);
 		return (
-			<Container>
+			<Container className="playerContainer">
 				<Player
 					currentlyPlaying={this.state.currentlyPlaying}
 					loadSong={this.loadSong}
 				/>
-				<button onClick={this.loadSong} />
+				<Button onClick={() => this.loadSong()}>start session</Button>
 				<div className="admin">
 					<div>
 						<Search setResults={this.setResults} />

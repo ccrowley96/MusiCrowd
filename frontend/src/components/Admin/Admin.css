@@ -8,6 +8,7 @@
   grid-gap: 5%;
 }
 
+
 @media only screen and (max-width: 900px) {
   .admin {
     display: grid;
@@ -21,4 +22,8 @@
 
 .srchq div {
   width: 50%;
+}
+
+.playerContainer{
+  padding-top: 40px;
 }
