@@ -6,11 +6,25 @@
   text-align: left;
   background-color: rgb(169, 169, 169, 0.5);
   color: #FFFFFF;
+  border-radius:10px;
+}
+.play-skip{
+  padding-right: 20px;
+  padding-bottom:5px;
 }
 
 .player img {
   width: 100px;
   margin-right: 5%;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.player p{
+  margin-bottom: 0px;
+}
+.player h5{
+  margin-top:5px;
 }
 
 .svg {
@@ -19,4 +33,12 @@
 
 .svg svg {
   cursor: pointer;
+}
+
+.playertemp{
+  min-height: 100px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
 }

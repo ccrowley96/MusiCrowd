@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { connect } from "react-redux";
+import { Spinner} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faStepBackward,
@@ -23,7 +24,9 @@ class Player extends Component {
 			playing: false,
 			position: 0,
 			duration: 0,
-			trackImage: ""
+			trackImage: "",
+			paused: false,
+			holder: 0
 		};
 		this.playerCheckInterval = null;
 	}
@@ -109,15 +112,34 @@ class Player extends Component {
 				() => {
 					var local_this = this;
 					if (this.state.playing) {
-						console.log("playing");
+						this.setState({
+							paused: false
+						});
 					} else {
-						// : console.log(this.state.duration);
-						setTimeout(function() {
-							local_this.props.loadSong();
-						}, 1000);
+						if (!this.state.paused) {
+							var temp = this.state.holder + 1;
+							this.setState(
+								{
+									holder: temp
+								},
+								() => {
+									if (this.state.holder === 3) {
+										local_this.props.loadSong();
+										this.setState({
+											holder: 0
+										});
+									} else {
+										console.log(this.state.holder);
+									}
+								}
+							);
+						}
 					}
 				}
 			);
+		}
+		if (state === null) {
+			console.log("state null");
 		}
 	}
 
@@ -127,6 +149,9 @@ class Player extends Component {
 
 	onPlayClick() {
 		this.player.togglePlay();
+		this.setState({
+			paused: !this.state.paused
+		});
 	}
 
 	onNextClick() {
@@ -196,20 +221,22 @@ class Player extends Component {
 						<h5>{trackName}</h5>
 						<p>{artistName}</p>
 						<div className="svg">
-							<FontAwesomeIcon
+							{/* <FontAwesomeIcon
 								icon={faStepBackward}
 								onClick={() => this.onPrevClick()}
-							/>
+							/> */}
 							<FontAwesomeIcon
 								icon={playing ? faPause : faPlay}
 								onClick={() => this.onPlayClick()}
-								className="svgIcon"
+								className="svgIcon play-skip"
+								size={"3x"}
 							/>
 							<FontAwesomeIcon
 								icon={faStepForward}
 								onClick={() => this.props.loadSong()}
-								className="svgIcon"
-							/>
+								className="svgIcon play-skip"
+								size={"3x"}
+							/> 
 						</div>
 					</div>
 
@@ -217,7 +244,10 @@ class Player extends Component {
 				</div>
 			);
 		} else {
-			return <div />;
+			return (
+			<div className="playertemp">
+				<Spinner color="dark"/>
+			</div>);
 		}
 	}
 }
