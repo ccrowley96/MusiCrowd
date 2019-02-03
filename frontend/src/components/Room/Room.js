@@ -104,6 +104,7 @@ class Room extends Component {
 			<Container className="playerContainer">
 				<div className="room-player">
 					<img src={trackImage} alt="song playing" />
+					
 					<div>
 						<h3>{trackName}</h3>
 						<h5>{artistName}</h5>

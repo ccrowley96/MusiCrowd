@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { setAccessToken, setSearchResults } from "../../actions/dataAction";
 import { connect } from "react-redux";
-import { Spinner} from "reactstrap";
+import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faStepBackward,
@@ -236,7 +236,7 @@ class Player extends Component {
 								onClick={() => this.props.loadSong()}
 								className="svgIcon play-skip"
 								size={"3x"}
-							/> 
+							/>
 						</div>
 					</div>
 
@@ -245,9 +245,10 @@ class Player extends Component {
 			);
 		} else {
 			return (
-			<div className="playertemp">
-				<Spinner color="dark"/>
-			</div>);
+				<div className="playertemp">
+					<Spinner color="dark" />
+				</div>
+			);
 		}
 	}
 }
