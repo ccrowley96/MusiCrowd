@@ -19,7 +19,12 @@ class Search extends Component {
 	componentDidMount = () => {
 		if (this.props.access_token !== undefined)
 			spotifyApi.setAccessToken(this.props.access_token);
-		
+		console.log(this.props.access_token);
+	};
+
+	componentDidUpdate = prevProps => {
+		if (prevProps.access_token === undefined)
+			spotifyApi.setAccessToken(this.props.access_token);
 	};
 
 	handleSearch = e => {
@@ -34,7 +39,7 @@ class Search extends Component {
 				} else {
 					spotifyApi.searchTracks(this.state.searchTerm).then(
 						function(data) {
-							local_this.props.setResults(data.tracks.items);	
+							local_this.props.setResults(data.tracks.items);
 						},
 						function(err) {
 							console.error(err);
