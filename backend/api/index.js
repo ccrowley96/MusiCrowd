@@ -162,7 +162,7 @@ router.get('/nextsong/:party_code/', async (req, res) => {
 });
 
 router.get('/room/:party_code', async(req, res) => {
-    let party_code = req.query.party_code;
+    let party_code = req.params.party_code;
     let room = await Room.findOne({party_code: party_code});
     if (!room) {
         return res.status(404).send({error: 'Room does not exist.'});
