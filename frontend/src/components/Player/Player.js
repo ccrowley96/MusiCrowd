@@ -4,12 +4,10 @@ import { connect } from "react-redux";
 import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faStepBackward,
 	faStepForward,
 	faPlay,
 	faPause
 } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import "./Player.css";
 
 class Player extends Component {
@@ -199,18 +197,20 @@ class Player extends Component {
 	};
 
 	render() {
-		const {
-			token,
-			loggedIn,
-			artistName,
-			trackName,
-			albumName,
-			error,
-			position,
-			duration,
-			playing,
-			trackImage
-		} = this.state;
+		// const {
+		// 	token,
+		// 	loggedIn,
+		// 	artistName,
+		// 	trackName,
+		// 	albumName,
+		// 	error,
+		// 	position,
+		// 	duration,
+		// 	playing,
+		// 	trackImage
+		// } = this.state;
+
+		const { artistName, trackName, playing, trackImage } = this.state;
 
 		if (trackName !== "") {
 			return (
