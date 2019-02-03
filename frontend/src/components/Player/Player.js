@@ -107,9 +107,15 @@ class Player extends Component {
 					trackImage
 				},
 				() => {
-					this.state.playing
-						? console.log("playing")
-						: this.props.loadSong();
+					var local_this = this;
+					if (this.state.playing) {
+						console.log("playing");
+					} else {
+						// : console.log(this.state.duration);
+						setTimeout(function() {
+							local_this.props.loadSong();
+						}, 1000);
+					}
 				}
 			);
 		}
@@ -201,7 +207,7 @@ class Player extends Component {
 							/>
 							<FontAwesomeIcon
 								icon={faStepForward}
-								onClick={() => this.onNextClick()}
+								onClick={() => this.props.loadSong()}
 								className="svgIcon"
 							/>
 						</div>
