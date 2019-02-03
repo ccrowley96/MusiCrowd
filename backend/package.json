@@ -14,6 +14,7 @@
     "express": "~4.16.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.9",
+    "path": "^0.12.7",
     "querystring": "~0.2.0",
     "randomstring": "^1.1.5",
     "request": "~2.83.0"
