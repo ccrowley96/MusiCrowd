@@ -101,15 +101,17 @@ class Admin extends Component {
 							start session
 						</Button>
 					)}
-					<a
-						href={`http://localhost:3000/tvmode?=${
-							this.state.partyCode
-						}`}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						tvmode
-					</a>
+					<Button>
+						<a
+							href={`https://musicrowd.herokuapp.com/tvmode?=${
+								this.state.partyCode
+							}`}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							tvmode
+						</a>
+					</Button>
 				</div>
 				<div className="roomCode">
 				<h4>
