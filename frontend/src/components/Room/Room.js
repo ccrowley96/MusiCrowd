@@ -1,24 +1,45 @@
 import React, { Component } from "react";
 import Search from "../Search/Search";
+import { setAccessToken } from "../../actions/dataAction";
 import Results from "../Results/Results";
+import Queue from "../Queue/Queue";
+import Player from "../Player/Player";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import axios from "axios";
 
 import { Container } from "reactstrap";
 import "./Room.css";
 
-export default class Room extends Component {
+class Room extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			roomCode: "",
-			results: []
+			results: [],
+			access_token: "",
+			partyCode: undefined,
+			queue: []
 		};
 	}
 
 	componentDidMount = () => {
 		var code = this.props.history.location.search.split("=")[1];
-		this.setState({
-			roomCode: code
-		});
+		this.setState(
+			{
+				partyCode: code
+			},
+			() => {
+				axios.get(`/api/room/${this.state.roomCode}`).then(res => {
+					this.setState(
+						{
+							access_token: res.data.token
+						},
+						() => this.props.setAccessToken(this.state.access_token)
+					);
+				});
+			}
+		);
 	};
 
 	setResults = results => {
@@ -31,19 +52,49 @@ export default class Room extends Component {
 		});
 	};
 
+	setQueue = queue => {
+		this.setState({
+			queue
+		});
+	};
+
 	render() {
 		return (
-			<div className="room">
-				<Container className="page">
+			<Container className="playerContainer">
+				<Player
+					currentlyPlaying={this.state.currentlyPlaying}
+					loadSong={this.loadSong}
+					options={false}
+				/>
+				<div className="room">
 					<div>
 						<Search setResults={this.setResults} />
 						<Results
 							results={this.state.results}
+							partyCode={this.state.partyCode}
 							clearSearch={this.clearSearch}
 						/>
 					</div>
-				</Container>
-			</div>
+					<Queue
+						setQueue={this.setQueue}
+						options={false}
+						partyCode={this.state.partyCode}
+					/>
+				</div>
+			</Container>
 		);
 	}
 }
+
+const actions = { setAccessToken };
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		access_token: state.data.data.access_token
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	actions
+)(Room);
