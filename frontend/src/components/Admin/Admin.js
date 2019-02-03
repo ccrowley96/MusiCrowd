@@ -109,11 +109,12 @@ class Admin extends Component {
 							this.state.partyCode
 						}`}
 						target="_blank"
+						className="tv"
 						rel="noopener noreferrer"
 					>
 						<FontAwesomeIcon
 							icon={faTv}
-							size={"3x"}
+							size={"2x"}
 							color="white"
 						/>
 					</a>
