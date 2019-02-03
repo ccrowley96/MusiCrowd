@@ -8,6 +8,10 @@
   grid-gap: 5%;
 }
 
+.roomCode {
+  color: #FFFFFF;
+}
+
 .startSessionButton{
   margin-top: 20px;
   text-align: left;

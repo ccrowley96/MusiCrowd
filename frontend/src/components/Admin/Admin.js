@@ -105,7 +105,7 @@ class Admin extends Component {
 				</div>
 				<div className="roomCode">
 				<h4>
-					<b>Room - </b>{this.state.partyCode}
+					<b>Party Code: </b>{this.state.partyCode}
 				</h4>
 				</div>
 				<div className="admin">
