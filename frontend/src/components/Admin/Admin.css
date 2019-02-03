@@ -12,11 +12,16 @@
   color: #FFFFFF;
 }
 
-.startSessionButton{
-  margin-top: 20px;
+.startSessionButton {
+  margin-top: 0 !important;
   text-align: left;
 }
 
+.tv {
+  position: absolute;
+  float: right;
+  margin-left: 1%;
+}
 
 @media only screen and (max-width: 900px) {
   .admin {
@@ -25,12 +30,12 @@
   }
 }
 
-.buttons-admin{
+.buttons-admin {
   display: flex;
   flex-direction: column;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
 }
@@ -43,6 +48,6 @@ a{
   width: 50%;
 }
 
-.playerContainer{
+.playerContainer {
   padding-top: 40px;
 }
