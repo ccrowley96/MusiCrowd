@@ -19,7 +19,7 @@ var path = require('path');
 
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
-var redirect_uri = "https://musicrowd.ca/callback"; // Your redirect uri
+var redirect_uri = "http://musicrowd.ca/callback"; // Your redirect uri
 let port = process.env.PORT || 8888;
 
 /**
