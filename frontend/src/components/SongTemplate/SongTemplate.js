@@ -6,9 +6,7 @@ import {
 	faCaretDown,
 	faTimes
 } from "@fortawesome/free-solid-svg-icons";
-import { Container, Row, Col } from "reactstrap";
-import { Media } from "reactstrap";
-
+import { Row, Col } from "reactstrap";
 import "./SongTemplate.css";
 
 export default class SongTemplate extends Component {

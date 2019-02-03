@@ -87,7 +87,7 @@ class Admin extends Component {
 					currentlyPlaying={this.state.currentlyPlaying}
 					loadSong={this.loadSong}
 				/>
-				<div style={{height: "80px", marginTop: "30px"}}>
+				<div style={{ height: "80px", marginTop: "30px" }}>
 					{!this.state.started && this.state.queue.length !== 0 && (
 						<Button
 							className="startSessionButton"
@@ -100,8 +100,16 @@ class Admin extends Component {
 						>
 							start session
 						</Button>
-
 					)}
+					<a
+						href={`http://localhost:3000/tvmode?=${
+							this.state.partyCode
+						}`}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						tvmode
+					</a>
 				</div>
 				<div className="roomCode">
 				<h4>

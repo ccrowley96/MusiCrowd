@@ -3,7 +3,6 @@ import Search from "../Search/Search";
 import { setAccessToken } from "../../actions/dataAction";
 import Results from "../Results/Results";
 import Queue from "../Queue/Queue";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 
@@ -104,6 +103,7 @@ class Room extends Component {
 			<Container className="playerContainer">
 				<div className="room-player">
 					<img src={trackImage} alt="song playing" />
+
 					<div>
 						<h3>{trackName}</h3>
 						<h5>{artistName}</h5>

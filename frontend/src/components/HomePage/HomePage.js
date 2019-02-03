@@ -4,6 +4,7 @@ import { InputGroup, Input, Button, Alert } from "reactstrap";
 import { setAccessToken } from "../../actions/dataAction";
 import { connect } from "react-redux";
 import "./HomePage.css";
+import musicrowd_logo from "../../img/musicrowd_logo_white.png";
 
 class HomePage extends Component {
 	constructor(props) {
@@ -75,9 +76,11 @@ class HomePage extends Component {
 		if (this.state.access_token) {
 			return <Redirect to="/admin" />;
 		}
+		
 		return (
 			<div className="homepage">
 				<div>
+				<img className = "logo" src={musicrowd_logo} alt="musicrowd" />
 					<InputGroup className="input">
 						<Input
 							placeholder="room number"

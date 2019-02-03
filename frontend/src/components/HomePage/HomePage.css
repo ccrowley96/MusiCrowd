@@ -8,6 +8,33 @@
   flex-direction: column;
 }
 
+.logo {
+  width: 300px; 
+  margin-bottom: -50px;
+  margin-top:-300px;
+}
+
+@media only screen and (min-width: 400px) {
+  .logo {
+    width: 300px; 
+    margin-bottom: -50px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .logo {
+    width: 400px; 
+    margin-bottom: -60px;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .logo {
+    width: 500px; 
+    margin-bottom: -120px;
+  }
+}
+
+
 .homepage a {
   text-decoration: none;
 }
