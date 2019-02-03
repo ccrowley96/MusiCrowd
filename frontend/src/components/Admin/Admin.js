@@ -5,9 +5,7 @@ import { Container, Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faTv
-} from "@fortawesome/free-solid-svg-icons";
+import { faTv } from "@fortawesome/free-solid-svg-icons";
 import Search from "../Search/Search";
 import Player from "../Player/Player";
 import Queue from "../Queue/Queue";
@@ -93,7 +91,6 @@ class Admin extends Component {
 				/>
 				<div style={{ height: "80px", marginTop: "30px" }}>
 					{!this.state.started && this.state.queue.length !== 0 && (
-						<div className="buttons-admin">
 						<Button
 							className="startSessionButton"
 							onClick={() => {
@@ -105,6 +102,8 @@ class Admin extends Component {
 						>
 							start session
 						</Button>
+					)}
+
 					<a
 						href={`https://musicrowd.herokuapp.com/tvmode?=${
 							this.state.partyCode
@@ -112,15 +111,18 @@ class Admin extends Component {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<FontAwesomeIcon icon={faTv} size={"3x"} color="white"/>
+						<FontAwesomeIcon
+							icon={faTv}
+							size={"3x"}
+							color="white"
+						/>
 					</a>
-					</div>
-					)}
 				</div>
 				<div className="roomCode">
-				<h4>
-					<b>Party Code: </b>{this.state.partyCode}
-				</h4>
+					<h4>
+						<b>Party Code: </b>
+						{this.state.partyCode}
+					</h4>
 				</div>
 				<div className="admin">
 					<div>
