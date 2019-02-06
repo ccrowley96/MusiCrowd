@@ -92,8 +92,9 @@ class HomePage extends Component {
 					</InputGroup>
 					{this.state.errMessage && (
 						<Alert color="danger">room does not exist</Alert>
-					)}
-						<a href="https://www.musicrowd.ca/login">
+					)} 
+					{/* We can't use template string with the href below */}
+						<a href={`${process.env.REACT_APP_HOST_PROXY}/login`}> 
 					<Button color="secondary" className="cr">
 					Create Room
 					</Button>

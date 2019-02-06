@@ -6,8 +6,10 @@
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
-
+// Sets up environments
+require('./config/config');
 require("dotenv").config();
+
 var express = require("express"); // Express web server framework
 var request = require("request"); // "Request" library
 const bodyParser = require('body-parser');
@@ -19,7 +21,7 @@ var path = require('path');
 
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
-var redirect_uri = "https://www.musicrowd.ca/callback"; // Your redirect uri
+var redirect_uri = `${process.env.HOST}/callback`; // Your redirect uri
 let port = process.env.PORT || 8888;
 
 /**
@@ -49,15 +51,6 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"))
 	.use(cors())
 	.use(cookieParser());
-
-// app.get('/', function(req, res) {
-// 	console.log(path.join(__dirname, './../frontend/build/index.html'))
-// 	res.sendFile(path.join(__dirname, './../frontend/build/index.html'), (err) => {
-// 		if (err) {
-// 			res.status(500).send(err)
-// 		}
-// 	})
-// });
 
 app.get("/login", function(req, res) {
 	var state = generateRandomString(16);
@@ -130,7 +123,7 @@ app.get("/callback", function(req, res) {
 
 				// we can also pass the token to the browser to make requests from there
 				res.redirect(
-					"https://www.musicrowd.ca/#" +
+					`${process.env.HOST_CLIENT}/#` +
 						querystring.stringify({
 							access_token: access_token,
 							refresh_token: refresh_token
@@ -138,7 +131,7 @@ app.get("/callback", function(req, res) {
 				);
 			} else {
 				res.redirect(
-					"https://www.musicrowd.ca/#" +
+					`${process.env.HOST_CLIENT}/#` +
 						querystring.stringify({
 							error: "invalid_token"
 						})
@@ -186,8 +179,7 @@ if (process.env.NODE_ENV === 'production') {
 	  res.sendFile(path.join(__dirname, './../frontend/build', 'index.html'));
 	});
 }
-
+console.log(`Backend Host: ${process.env.HOST}`);
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-console.log("Listening on 8888");
 app.listen();

@@ -105,7 +105,7 @@ class Admin extends Component {
 					)}
 
 					<a
-						href={`https://www.musicrowd.ca/tvmode?=${
+						href={`${process.env.REACT_APP_HOST}/tvmode?=${
 							this.state.partyCode
 						}`}
 						target="_blank"
