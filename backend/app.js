@@ -6,8 +6,10 @@
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
-
+// Sets up environments
+require('./config/config');
 require("dotenv").config();
+
 var express = require("express"); // Express web server framework
 var request = require("request"); // "Request" library
 const bodyParser = require('body-parser');
