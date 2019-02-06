@@ -1,6 +1,10 @@
 .queue {
     /* margin-top:20%; */
+    max-height: 75vh;
+    overflow: hidden;
+    overflow-y: auto;
 }
-.queue h1{
-    color:white;
+
+.queue h1 {
+    color: white;
 }
