@@ -105,9 +105,7 @@ class HomePage extends Component {
 					{!mobile({ tablet: true }) && (
 						<a href={`${process.env.REACT_APP_HOST_PROXY}/login`}>
 							<Button color="secondary" className="cr">
-								<a href={`http://locahost/login`}>
-									Create Room
-								</a>
+								Create Room
 							</Button>
 						</a>
 					)}
