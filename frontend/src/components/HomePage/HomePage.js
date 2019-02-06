@@ -77,14 +77,18 @@ class HomePage extends Component {
 		if (this.state.access_token) {
 			return <Redirect to="/admin" />;
 		}
-		
+
 		return (
 			<div className="homepage">
 				<div>
-				<img className = "logo" src={musicrowd_logo} alt="musicrowd" />
-				<div class="slogan">
-					<h2>The crowdsourced DJ.</h2>
-				</div>
+					<img
+						className="logo"
+						src={musicrowd_logo}
+						alt="musicrowd"
+					/>
+					<div class="slogan">
+						<h2>The crowdsourced DJ.</h2>
+					</div>
 					<InputGroup className="input">
 						<Input
 							placeholder="Room code"
@@ -96,19 +100,17 @@ class HomePage extends Component {
 					</InputGroup>
 					{this.state.errMessage && (
 						<Alert color="danger">Room does not exist!</Alert>
-					)} 
+					)}
 					{/* We can't use template string with the href below */}
-					{
-						!mobile() && 
-						(
-						<a href={`${process.env.REACT_APP_HOST_PROXY}/login`}> 
+					{!mobile({ tablet: true }) && (
+						<a href={`${process.env.REACT_APP_HOST_PROXY}/login`}>
 							<Button color="secondary" className="cr">
-								
-								<a href={`http://locahost/login`}>Create Room</a>
+								<a href={`http://locahost/login`}>
+									Create Room
+								</a>
 							</Button>
 						</a>
-						)
-					}
+					)}
 				</div>
 			</div>
 		);

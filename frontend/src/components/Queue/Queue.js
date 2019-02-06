@@ -52,16 +52,18 @@ class Queue extends Component {
 		return (
 			<div className="queue">
 				<h1>Queue</h1>
-				{this.state.queue.map(song => (
-					<SongTemplate
-						key={song.song_payload.id}
-						song={song.song_payload}
-						votes={song.votes}
-						voterFlag={true}
-						partyCode={this.props.partyCode}
-						isAdmin={this.props.options}
-					/>
-				))}
+				<div>
+					{this.state.queue.map(song => (
+						<SongTemplate
+							key={song.song_payload.id}
+							song={song.song_payload}
+							votes={song.votes}
+							voterFlag={true}
+							partyCode={this.props.partyCode}
+							isAdmin={this.props.options}
+						/>
+					))}
+				</div>
 			</div>
 		);
 	}
