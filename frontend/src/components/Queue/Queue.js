@@ -52,7 +52,7 @@ class Queue extends Component {
 		return (
 			<div className="queue">
 				<h1>Queue</h1>
-				<div>
+				<div className="queue-wrapper">
 					{this.state.queue.map(song => (
 						<SongTemplate
 							key={song.song_payload.id}

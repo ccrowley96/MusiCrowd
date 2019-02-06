@@ -1,6 +1,4 @@
-.queue {}
-
-.queue div {
+.queue-wrapper {
     /* margin-top:20%; */
     max-height: 75vh;
     overflow: hidden;
