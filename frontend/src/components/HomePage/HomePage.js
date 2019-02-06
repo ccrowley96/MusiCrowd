@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { InputGroup, Input, Button, Alert } from "reactstrap";
 import { setAccessToken } from "../../actions/dataAction";
 import { connect } from "react-redux";
+import mobile from "is-mobile";
 import "./HomePage.css";
 import musicrowd_logo from "../../img/musicrowd_logo_white.png";
 
@@ -97,11 +98,17 @@ class HomePage extends Component {
 						<Alert color="danger">Room does not exist!</Alert>
 					)} 
 					{/* We can't use template string with the href below */}
+					{
+						!mobile() && 
+						(
 						<a href={`${process.env.REACT_APP_HOST_PROXY}/login`}> 
-					<Button color="secondary" className="cr">
-					Create Room
-					</Button>
-					</a>
+							<Button color="secondary" className="cr">
+								
+								<a href={`http://locahost/login`}>Create Room</a>
+							</Button>
+						</a>
+						)
+					}
 				</div>
 			</div>
 		);
