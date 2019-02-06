@@ -30,7 +30,7 @@
 @media only screen and (min-width: 1000px) {
   .logo {
     width: 500px; 
-    margin-bottom: -120px;
+    margin-bottom: -150px;
   }
 }
 
@@ -54,4 +54,9 @@
 
 .cr a {
   color: white;
+}
+
+.slogan {
+  color: white;
+  padding-bottom: 3rem
 }

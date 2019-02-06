@@ -81,9 +81,12 @@ class HomePage extends Component {
 			<div className="homepage">
 				<div>
 				<img className = "logo" src={musicrowd_logo} alt="musicrowd" />
+				<div class="slogan">
+					<h2>The crowdsourced DJ.</h2>
+				</div>
 					<InputGroup className="input">
 						<Input
-							placeholder="room number"
+							placeholder="Room code"
 							onChange={this.handleChange}
 							defaultValue={this.state.roomCode}
 						/>
@@ -91,7 +94,7 @@ class HomePage extends Component {
 						<Button onClick={this.hitRoom}>Join room</Button>
 					</InputGroup>
 					{this.state.errMessage && (
-						<Alert color="danger">room does not exist</Alert>
+						<Alert color="danger">Room does not exist!</Alert>
 					)} 
 					{/* We can't use template string with the href below */}
 						<a href={`${process.env.REACT_APP_HOST_PROXY}/login`}> 

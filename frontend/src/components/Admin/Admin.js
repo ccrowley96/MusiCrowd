@@ -100,7 +100,7 @@ class Admin extends Component {
 								});
 							}}
 						>
-							start session
+							Start session
 						</Button>
 					)}
 
@@ -121,7 +121,7 @@ class Admin extends Component {
 				</div>
 				<div className="roomCode">
 					<h4>
-						<b>Party Code: </b>
+						<b>Room Code: </b>
 						{this.state.partyCode}
 					</h4>
 				</div>

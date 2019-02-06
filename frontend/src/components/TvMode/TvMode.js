@@ -38,8 +38,8 @@ export default class TvMode extends Component {
 	render() {
 		return (
 			<Container className="tvmode">
-				<h1>Tv Mode</h1>
-				<h3>Room - {this.state.code}</h3>
+				<h1>TV Mode</h1>
+				<h3>Room Code: {this.state.code}</h3>
 				<div id="bars">
 					<div className="bar" />
 					<div className="bar" />
