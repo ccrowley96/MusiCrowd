@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const roomSchema = mongoose.Schema({
-    createdAt: { 
-      type: Date, 
-      expires: 43200, 
-      default: Date.now 
+      expireAt: {
+        type: Date,
+        default: function() {
+          // 12 hours seconds from now is 12*60*60*1000 milliseconds
+          return new Date(new Date().valueOf() + (12*60*60*1000));
+      }
     },
     party_code: {
       type: String,
@@ -32,6 +34,9 @@ const roomSchema = mongoose.Schema({
       type: Object
     }
   });
+
+  // Expire at the time indicated by the expireAt field
+  roomSchema.index({ expireAt: 1 }, { expireAfterSeconds : 0 });
   
   const Room = mongoose.model('Room', roomSchema);
   module.exports = {Room}

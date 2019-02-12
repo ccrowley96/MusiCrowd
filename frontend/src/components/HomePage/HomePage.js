@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { InputGroup, Input, Button, Alert } from "reactstrap";
 import { setAccessToken } from "../../actions/dataAction";
 import { connect } from "react-redux";
+import axios from "axios";
 import mobile from "is-mobile";
 import "./HomePage.css";
 import musicrowd_logo from "../../img/musicrowd_logo_white.png";
@@ -56,14 +57,28 @@ class HomePage extends Component {
 	};
 
 	hitRoom = () => {
-		if (this.state.roomCode !== undefined) {
-			this.setState({
-				goToRoom: true
-			});
-		} else {
+
+		if(this.state.roomCode === undefined){
 			this.setState({
 				errMessage: true
 			});
+		} else{
+			// Request to backend to see if room exists
+			axios
+			.get(`/api/isroom/${this.state.roomCode}`)
+			.then(res => {
+				if(res.data.roomFound){
+					this.setState({
+						goToRoom: true
+					});
+				} else{
+					this.setState({
+						errMessage: true
+					});
+				}
+				
+			})
+			.catch(err => console.log(err));
 		}
 	};
 
@@ -86,7 +101,7 @@ class HomePage extends Component {
 						src={musicrowd_logo}
 						alt="musicrowd"
 					/>
-					<div class="slogan">
+					<div className="slogan">
 						<h2>The crowdsourced DJ.</h2>
 					</div>
 					<InputGroup className="input">
