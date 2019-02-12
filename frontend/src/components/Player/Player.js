@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faStepForward,
 	faPlay,
-	faPause
+	faPause,
+	faTv
 } from "@fortawesome/free-solid-svg-icons";
 import "./Player.css";
 
@@ -197,18 +198,6 @@ class Player extends Component {
 	};
 
 	render() {
-		// const {
-		// 	token,
-		// 	loggedIn,
-		// 	artistName,
-		// 	trackName,
-		// 	albumName,
-		// 	error,
-		// 	position,
-		// 	duration,
-		// 	playing,
-		// 	trackImage
-		// } = this.state;
 
 		const { artistName, trackName, playing, trackImage } = this.state;
 
@@ -221,10 +210,6 @@ class Player extends Component {
 						<h5>{trackName}</h5>
 						<p>{artistName}</p>
 						<div className="svg">
-							{/* <FontAwesomeIcon
-								icon={faStepBackward}
-								onClick={() => this.onPrevClick()}
-							/> */}
 							<FontAwesomeIcon
 								icon={playing ? faPause : faPlay}
 								onClick={() => this.onPlayClick()}
@@ -237,6 +222,21 @@ class Player extends Component {
 								className="svgIcon play-skip"
 								size={"3x"}
 							/>
+							<a
+								href={`${process.env.REACT_APP_HOST}/tvmode?=${
+									this.props.partyCode
+								}`}
+								target="_blank"
+								className="tv"
+								rel="noopener noreferrer"
+							>
+								<FontAwesomeIcon
+									icon={faTv}
+									size={"3x"}
+									className="svgIcon play-skip"
+									color="white"
+								/>
+							</a>
 						</div>
 					</div>
 

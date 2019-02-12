@@ -17,11 +17,6 @@
   text-align: left;
 }
 
-.tv {
-  position: absolute;
-  float: right;
-  margin-left: 1%;
-}
 
 @media only screen and (max-width: 900px) {
   .admin {

@@ -61,7 +61,6 @@ class Admin extends Component {
 		axios
 			.get(`/api/nextsong/${this.state.partyCode}`)
 			.then(res => {
-				// console.log(res.data);
 				this.setState({
 					currentlyPlaying: res.data.uri
 				});
@@ -88,6 +87,7 @@ class Admin extends Component {
 				<Player
 					currentlyPlaying={this.state.currentlyPlaying}
 					loadSong={this.loadSong}
+					partyCode={this.state.partyCode}
 				/>
 				<div style={{ height: "80px", marginTop: "30px" }}>
 					{!this.state.started && this.state.queue.length !== 0 && (
@@ -103,21 +103,6 @@ class Admin extends Component {
 							Start session
 						</Button>
 					)}
-
-					<a
-						href={`${process.env.REACT_APP_HOST}/tvmode?=${
-							this.state.partyCode
-						}`}
-						target="_blank"
-						className="tv"
-						rel="noopener noreferrer"
-					>
-						<FontAwesomeIcon
-							icon={faTv}
-							size={"2x"}
-							color="white"
-						/>
-					</a>
 				</div>
 				<div className="roomCode">
 					<h4>
