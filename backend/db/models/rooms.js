@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const roomSchema = mongoose.Schema({
+    createdAt: { 
+      type: Date, 
+      expires: 43200, 
+      default: Date.now 
+    },
     party_code: {
       type: String,
       required: true
