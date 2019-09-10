@@ -17,3 +17,6 @@ This system was built with the intentions of allowing entertainment venues (pubs
 3. Commit changes to the branch: `git add . && git commit -m "Present tense commit message"`
 4. Push the changes: `git push -u origin feature/feature-implementing`
 5. Submit a pull request
+
+# Devpost
+More information on the project [here](https://devpost.com/software/musicrowd)
