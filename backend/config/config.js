@@ -6,5 +6,5 @@ if (env === 'development') {
     process.env.HOST_CLIENT="http://localhost:3000";
     // TO DO: We need to have a seperate Dev DB
 } else if (env === 'production') {
-    process.env.HOST= "https://www.musicrowd.ca";
+    process.env.HOST= "http://www.musicrowd.ca";
 }
