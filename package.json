@@ -26,7 +26,7 @@
     "express": "~4.16.0",
     "is-mobile": "^2.0.0",
     "lodash": "^4.17.11",
-    "mongoose": "^5.4.9",
+    "mongoose": "^5.7.5",
     "path": "^0.12.7",
     "querystring": "~0.2.0",
     "randomstring": "^1.1.5",
